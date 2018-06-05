@@ -29,7 +29,7 @@ http://www.ecma-international.org/publications/standards/Ecma-402.htm
 ECMA-404, *The Json Data Interchange Format*.
 http://www.ecma-international.org/publications/standars/Ecma-404.htm
 
-# 4. Revisión general
+# 4. Vista general
 
 Esta sección contiene una revisión general no normativa del lenguaje ECMAScript.
 
@@ -51,4 +51,26 @@ Ungar, David, and Smith, Randall B. Self: The Power of Simplicity. *OOPSLA '87 C
 
 *IEEE Standard for the Scheme Programming Language*. IEEE Std. 1178-1990.
 
+## 4.1 Scripting Web
+<sub>4.1 Web Scripting</sub>
 
+Un navegador web provee un entorno anfitrión a ECMAScript para la computación de lado del cliente, incluyendo por ejemplo, objetos que representan ventanas, menus, pop-ups, cajas de diálogo, areas de texto, enlaces, cuadros, historial, *cookies*, y entrada y salida de datos. Aún mas, el entorno anfitrión entrega una manera de anexar código de scripting a eventos como el cambio de foco, carga de páginas e imágenes, descargas, errores y cancelaciones, selección, envío de formularios, y acciones del mouse. El código de scripting aparece dentro del html y la página desplegada es una combinación de elementos de interfaz de usuario, y texto e imágenes fijas y *dinámicas*. (sic: computed). El código de scripting es reactivo a la interacción del usuario, y no hay necesidad de un programa central. 
+
+Un servidor web otorga un entorno anfitrión distinto para computación de lado del servidor, incluyendo objetos representando requests, clientes y archivos; y mecanismos para asegurar y compartir datos. Al usar scripting de lado del servidor y del cliente, es posible distribuir los procesos entre el cliente y el servidor mientras se provee una interfaz de usuario personalizada para una aplicación basada en web.
+
+Cada navegador web y servidor que soporta ECMAScript suministra su propio entorno anfitrión, completando el entorno de ejecución ECMAScript.
+
+## 4.2 Revisión general de ECMAScript.  
+<sub>4.2 ECMAScript Overview</sub> 
+
+La siguiente es un repaso general de ECMAScript -no todas las partes del lenguaje son descritas. Este vista no es parte del estándar propiamente tal.
+
+ECMAScript es basado en objetos<sub>object-based</sub>: el lenguaje básico y los recursos del anfitrión son provistos por objetos, y un programa ECMAScript es un racimo<sub>cluster</sub> de objetos comunicantes. En ECMAScript, un *objeto* es una colección de cero o más *propiedades* cada una con *atributos* que determinan còmo puede ser usada cada propiedad -por ejemplo, cuando el atributo `Writable` de una propiedad es configurado a **false**, cualquier intento de ejecutar código ECMAScript que asigne un valor diferente a esa propiedad fallará. Las propiedades son contenedores que mantienen otros objetos, *valores primitivos*, o *funciones*. Un valor primitivo es un miembro de uno de los siguientes tipos incorporados: **Undefined, Null, Boolean, Number, String, Symbol**; un objeto, por su parte, es miembro del tipo incorporado **Object**, y una función es una objeto llamable. Una función que es asociada con un objeto a través de una propiedad es llamada *método*.
+
+ECMAScript define una colección de *objetos incorporados* que completan la definición de las entidades ECMAScript. Estos objetos incorporados incluyen el **objeto global**; objetos que son fundamentales para las semánticas en tiempo de ejecución del programa, incluyendo **Object, Function, Boolean, Symbol**, y varios objetos de **Error**; objetos que representan y manipulan valores numéricos incluyendo **Math, Number** y **Date**, los objetos de procesado de texto **String** y **RegExp**; objetos que son colecciones indexadas de valores incluyendo el **Array** y nueve tipos diferentes de Array tipados<sub>Typed Array</sub> cuyos elementos tienen todos, una representación de datos numéricos específica; colecciones con clave incluyendo **Map** y **Set**; objetos que soportan datos estructurados, incluyendo el objeto **JSON, ArrayBuffer, SharedArrayBuffer** y **Dataview**; objetos que soportan abstracciones de control, como los generadores de funciones y **Promise**, y objetos de reflexión incluyendo **Proxy** y **Reflect**. 
+
+ECMAScript también define un conjunto de *operadores* incorporados. Los operadores ECMAScript incluyen varios operadores unarios, operadores multiplicativos, aditivos, de desplazamiento de bit a bit, operadores relacionales, de igualdad, operadores binarios de bit a bit, operadores lógicos binarios, operadores de asignación y el operador coma. 
+
+Grandes programas ECMAScript son soportados mediante *módulos*<sub>module</sub>, los cuales permiten a un programa ser dividido en múltiples secuencias de sentencias y declaraciones. Cada módulo identifica explícitamente las declaraciones que va a usar desde otro módulo y cuáles de sus declaraciones van a estar disponibles para ser usadas por otros módulos. 
+
+La sintaxis de ECMAScript se parece intencionalmente a la sintaxis de Java. La sintaxis de ECMAScript se ha relajado para hacerlo apropiado para servir como un lenguaje de scripting fácil de usar. Por ejemplo, una variable no requiere declarar su tipo o los tipos asociados con sus propiedades, y las funciones definidas no requieren tener declaraciones antes de ser llamadas.
