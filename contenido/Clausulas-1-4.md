@@ -78,9 +78,9 @@ La sintaxis de ECMAScript se parece intencionalmente a la sintaxis de Java. La s
 ### 4.2.1 Objetos
 <sub>objects</sub>
 
-Aun cuando ECMAScript incluye sintaxis para la definición de clases, los objetos ECMAScript no están basados fundamentalmente en clases, tales como aquellos en C++, Smalltalk, o Java. En vez de eso, los objetos pueden ser creados de varios maneras incluyendo una notación literal, a traves de *constructors* los cuales crean objetos y luego ejecutan código que los inicializa total o parcialmente a traves de la asignación inicial de valores a sus propiedades. Cada constructor es una función que tiene una propiedad llamada `prototype`que es usada para implementar herencia basada en prototipo y propiedades compartidas. Los objetos son creados utilizando los constructores en expresiones `new`; por ejemplo, `new Date(2009,11)` crea un nuevo objeto del tipo `Date`. El invocar un constructor sin utilizar la palabra `new` tiene consecuencias que dependen del constructor. Por ejemplo, `Date()` produce una cadena representativa de la fecha y hora actual en vez del objeto requerido.
+Aun cuando ECMAScript incluye sintaxis para la definición de clases, los objetos ECMAScript no están basados fundamentalmente en clases, tales como aquellos en C++, Smalltalk, o Java. En vez de eso, los objetos pueden ser creados de varios maneras incluyendo una notación literal, a traves de *constructors* los cuales crean objetos y luego ejecutan código que los inicializa total o parcialmente a traves de la asignación inicial de valores a sus propiedades. Cada constructor es una función que tiene una propiedad llamada `prototype`que es usada para implementar herencia basada en prototipo y propiedades compartidas. Los objetos son creados utilizando los constructores en expresiones `new`; por ejemplo, `new Date(2009,11)` crea un nuevo objeto del tipo `Date`. El invocar un constructor sin utilizar la palabra `new` tiene consecuencias que dependen del constructor. Por ejemplo, `Date()` produce una String representativa de la fecha y hora actual en vez del objeto requerido.
 
-Cada objeto creado por un constructor tiene un referencia implícita al valor de la propiedad `prototype` de su constructor (llamado el *prototipo* del objeto). Además, un prototipo puede tener una referencia *non-null* a su prototipo, y así, consecutivamente; esto es llamado "*cadena de prototipos*". Cuando una referencia es hecha a la propiedad en un objeto, esa referencia apunta a la propiedad con ese nombre en el primer objeto en la cadena de prototipos que tenga ese nombre. En otras palabras, primero se examina directamente el objeto mencionado en busca de esa propiedad; si ese objeto contiene aquella propiedad, esa será la propiedad a la que apuntará la referencia; si el objeto no contiene una propiedad con tal nombre, el prototipo de ese objeto es examinado a su vez, y asi. 
+Cada objeto creado por un constructor tiene un referencia implícita al valor de la propiedad `prototype` de su constructor (llamado el *prototipo* del objeto). Además, un prototipo puede tener una referencia *non-null* a su prototipo, y así, consecutivamente; esto es llamado "*String de prototipos*". Cuando una referencia es hecha a la propiedad en un objeto, esa referencia apunta a la propiedad con ese nombre en el primer objeto en la String de prototipos que tenga ese nombre. En otras palabras, primero se examina directamente el objeto mencionado en busca de esa propiedad; si ese objeto contiene aquella propiedad, esa será la propiedad a la que apuntará la referencia; si el objeto no contiene una propiedad con tal nombre, el prototipo de ese objeto es examinado a su vez, y asi. 
 
 ![imagen](C4-F1.png "Relaciones objeto/prototipo")
 
@@ -90,9 +90,206 @@ Todos los objetos que no contienen directamente una propiedad que su prototipo s
 
 Tal como lo ilustra la figura 1:
 
-**CF** es un constructor (y también un objeto). Se han creado 5 objetos usando la expresion `new`: **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>, cf<sub>5</sub>**. Cada uno de estos objetos contiene propiedades llamadas **q1** y **q2**. Las líneas punteadasm representan una relación de prototipado implícito; así, por ejemplo, el prototipo de **cf<sub>3</sub>** es **CF<sub>p</sub>**. El constructor, **CF**, tiene dos propiedades, llamadas **P1** y **P2**, las cuales no son visibles a **CF<sub>p</sub>**, **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, o **cf<sub>5</sub>**. La propiedad llamada **CFP1** en **CF<sub>p</sub>** es compartida por **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, y **cf<sub>5</sub>**, pero no por **CF**, asi como cualquier propiedad encontrada en la cadena de prototipado implícito de **CF<sub>p</sub>** que no sean **q1**, **q2** y **CFP1**. Observe que no hay una relación de prototipado implícito entre **CF** y **CF<sub>p</sub>**.
+**CF** es un constructor (y también un objeto). Se han creado 5 objetos usando la expresion `new`: **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>, cf<sub>5</sub>**. Cada uno de estos objetos contiene propiedades llamadas **q1** y **q2**. Las líneas punteadasm representan una relación de prototipado implícito; así, por ejemplo, el prototipo de **cf<sub>3</sub>** es **CF<sub>p</sub>**. El constructor, **CF**, tiene dos propiedades, llamadas **P1** y **P2**, las cuales no son visibles a **CF<sub>p</sub>**, **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, o **cf<sub>5</sub>**. La propiedad llamada **CFP1** en **CF<sub>p</sub>** es compartida por **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, y **cf<sub>5</sub>**, pero no por **CF**, asi como cualquier propiedad encontrada en la String de prototipado implícito de **CF<sub>p</sub>** que no sean **q1**, **q2** y **CFP1**. Observe que no hay una relación de prototipado implícito entre **CF** y **CF<sub>p</sub>**.
 
 A diferencia de la mayoría de los lenguajes basados en clases, las propiedades pueden ser añadidas a los objetos dinámicamente asignándoles valores. Esto quiere decir, que los constructores no están obligados a asignarle valores a cualquiera o ninguno de las propiedades de un objeto. El el diagrama anterior, uno puede añadir una nueva propiedad compartida para **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, y **cf<sub>5</sub>** asignándole un valor a una nueva propiedad en **CF<sub>p</sub>**.
 
 Aunque los objetos ECMAScript no son intrínsecamente objetos basados en clase, casi siempre es conveniente definir abstracciones similares a clases sobre patrones comunes para funciones constructor, objetos `prototype` y métodos. Los mismos objetos incorporados en ECMAScript siguen este patrón similar a clases. Comenzando con ECMAScript 2015, el lenguaje ECMAScript incluye definiciones sintácticas de clase que permiten a los programadores definir de manera concisa objetos que se ajustan al mismo patron de abstracción similar a clases que es usado en los objetos incorporados. 
 
+### 4.2.2 La variante estricta de ECMAScript
+
+ECMAScript reconoce la posibilidad de que algunas usuarios del lenguaje deseen restringir el uso de algunas de las características disponibles en este. Ellos podrían querer hacerlo interesados en la seguridad, o para evitar ciertas características del lenguaje que se considera que propenden a errores, o para tener un control de errores mejorado, o por cualesquiera otros motivos de su elección. Para soportar esta posibilidad, ECMAScript define una variante estricta del lenguaje. La variante estricta del lenguaje excluye algunas características sintácticas y semánticas del lenguaje regular y modifica la semántica detallada de otras características. La variante estricta también especifica condiciones adicionales de error, que arrojan excepciones en situaciones que no están especificadas como errores por la forma no estricta del lenguaje.
+
+La variante estricta del ECMAScript es comúnmente conocida como el *strict mode*. La selección del modo estricto y el uso de su sintaxis y semánticas son hechas explícitamente en el nivel de unidades de texto fuente individuales. Debido a que el modo estricto es elegido al nivel de sintaxis de la unidad de texto fuente, este solo impone sus restricciones con efecto local dentro de aquella unidad de texto fuente. El modo estricto no restringe ni modifica ningún aspecto de las semánticas de ECMAScript, que pueden operar consistentemente a través de múltiples unidades de texto fuente. Un programa completo ECMAScript puede estar compuesto de unidades de texto fuente de ambos modos, estricto y no estricto. En este caso, el modo estricto solo aplica cuando se está ejecutando código que está definido dentro de una unidad de texto fuente escrita en modo estricto.
+
+Para ajustarse a esta definición, una implementación ECMAScript debe implementar ambos modos de ECMAScript, el estricto y el el no estrito, tal como están definidos en esta especificación. Además, una implementación conforme debe soportar la combinación de unidades de texto fuente en modos estricto y no estricto dentro un solo programa. 
+
+## 4.3 Términos y definiciones
+
+Para los propósitos de este documento, los siguientes términos y definiciones aplican: 
+
+### 4.3.1 Tipo
+
+o *type* es un conjunto de valores tal como están definidos en la cláusula 6 de esta especificación.
+
+### 4.3.2 valor primitivo
+
+*primitive value* es miembro de unos de los siguientes tipos: **Undefined, Null, Boolean, Number, Symbol**, o **String**, tal cual están definidos en la cláusula 6.
+
+> NOTA: un valor primitivo es un *datum* que se representa directamente en el nivel más bajo posible de la implementación.
+
+### 4.3.3 objeto
+
+*object* es un miembro del tipo `Object`.
+
+> NOTA: un objeto es una colección de propiedades y tiene un solo objeto `prototype`. El valor de este `prototype` puede ser `Null`.
+
+### 4.3.4 constructor
+
+es una función que crea e inicializa objetos
+
+> NOTA: el valor de la propiedad `prototype` de un constructor es un objeto prototipo que es usado para implementar herencia y propiedades compartidas. 
+
+### 4.3.5 prototipo
+
+*prototype*, es un objeto que provee propiedades compartidas para otros objetos.
+
+> NOTA: Cuando un constructor crea un objeto, aquel objeto implícitamente hace referencia a la propiedad de su constructor `prototype`con el propósito de resolver las referencias a las propiedades. La propiedad del constructor `prototype` puede ser referenciada por la expresión del programa `constructor.prototype`, y las propiedades añadidas a un objeto `prototype` son compartidas, a través de herencia, por todos los objetos que comparten el prototipo. De manera alternativa, un nuevo objeto puede ser creado con un prototipo explícitamente especificado usando la función incorporada `Object.create`.
+
+### 4.3.6 objeto ordinario
+
+*ordinary object*, es un objeto que tiene el comportamiento por defecto para los métodos internos esenciales que son soportados por todos los objetos.
+
+### 4.3.7 exotic object
+
+*exotic object*, es un objeto que no tiene el comportamiento por defecto para uno o más de sus métodos internos esenciales. 
+
+### 4.3.8 objeto estandar
+
+*standar object*, es un objeto cuyas semánticas son aquellas definidas por esta especificación.
+
+### 4.3.9 objeto incorporado
+
+*built-in object*, es un objeto definido y suministrado por una implementación ECMAScript.
+
+> NOTA: los objetos incorporados estándar son los definidos en esta especificación. Una implementación ECMAScript puede especificar y suministrar clases adicionales de objetos incorporados. Un *constructor incorporado* es un objeto incorporado que también es un constructor. 
+
+### 4.3.10 valor undefined
+
+*undefined value*, es un valor primitivo usado cuando a una variable no se le ha asignado ningún valor. 
+
+### 4.3.11 tipo Undefined 
+
+*Undefined type*, es el tipo cuyo único valor es el valor undefined.
+
+### 4.3.12 valor null
+
+*null value*, es un valor primitivo que reprensenta la ausencia intencional de cualquier valor para un objeto. 
+
+### 4.3.13 tipo Null
+
+*Null type*, es el tipo cuyo único valor es el valor null.
+
+### 4.3.14 valor Boolean
+
+*Boolean value*, miembro del tipo Boolean.
+
+> NOTA: Solo existen dos valores booleanos: true y false.
+
+### 4.3.15 tipo Boolean
+
+*Boolean type*, tipo consistente de los valores primitivos true y false.
+
+### 4.3.16 objeto Boolean
+
+*Boolean object*, miembro del tipo Booleano que es una instancia del constructor estándar incorporado `Boolean`.
+
+> NOTA: un objeto Booleano es creado utilizando el constructor `Boolean` en una expresión `new`, suministrando un valor booleano como argumento. El objeto resultante tiene una "ranura interna" [(ver)][glosario_4_001]
+
+### 4.3.17 valor String
+
+*String value*, es un valor primitivo que es un secuencia finita ordenada de cero o más valores enteros de 16 bits unsigned.
+
+> NOTA: Una valor String, es un miembro del tipo String. Cada valor entero en la secuencia usualmente representa una sola unidad de texto UTF-16 de 16 bits. Sin embargo, ECMAScript no impone ninguna restricción o requerimiento a los valores excepto que ellos deben ser enteros de 16 bits unsigned.
+
+### 4.3.18 tipo String
+
+*String type*, es el conjunto de todos los valores posibles de String, tal como están definidos en 4.3.17
+
+### 4.3.19 objeto String
+
+*String object*, es miembro del tipo String, que es una instancia del constructor estándar incorporado `String`.
+
+> NOTA: un objeto String es creado utilizando el constructor `String` en una expresión `new`, suministrando un valor String como argumento. El objeto resultante tiene una ranura interna [(ver)][glosario_4_001] cuyo valor es un valor String. Un objeto String puede ser forzado en un valor String llamando el costructor `String` como una función. (21.1.1.1)
+
+### 4.3.20 valor Number
+
+*Number value* es un valor primitivo que corresponde a un valor binario de doble precisión de 64 bits de formato IEEE 754-2008.
+
+> NOTA: un valor Number es un miembro del tipo Number y es una representación directa de un número.
+
+### 4.3.21 tipo Number
+
+*Number type*, es el conjunto de todos los valores `Number` posibles, incluyendo los valores especiales "Not-a-Number" (NaN), el infinito positivo, y el infinito negativo.
+
+### 4.3.22 objeto Number
+
+*Number object*, miembro del tipo Object que es una instancia del constructor estándar incorporado `Number`.
+
+> NOTA: un objeto Number es creado usando el constructor `Number` en una expresión `new` y suministrando un valor Number como argumento. El objeto resultante tiene una ranura interna [(ver)][glosario_4_001] cuyo valor es un valor number. Un objeto Number puede ser forzado a un valor number usando el constructor `Number` como una función. (20.1.1.1)
+
+### 4.3.23 Infinity
+
+valor numérico que corresponde al valor numérico infinito positivo.
+
+### 4.3.24 NaN
+
+valor numérico que corresponde al valor "Not-a-Number" según IEEE 754-2008.
+
+### 4.3.25 valor Symbol
+
+*Symbol value*, es un valor primitivo que representa a un único *non-String* que es una clave de propiedad.
+
+### 4.3.26 tipo Symbol
+
+*Symbol type*, es el conjunto de todos los posibles valores de Symbol.
+
+### 4.3.27 objeto Symbol
+
+miembro del tipo objeto que puede ser una instancia del constructor estándar incorporado `Symbol`.
+
+### 4.3.28 función
+
+*function*, es un miembro del tipo Object que puede ser invocado como una subrutina.
+
+> NOTA: En adición a sus propiedades, una función contiene código ejecutable y estado que determinan como se comporta cuando es invocada. El codigo de una función puede o no estar escrito en ECMAScript.
+
+### 4.3.29 función incorporada
+
+*built-in function*, es un objeto incorporado que es una función.
+
+> NOTA: Ejemplos de funciones incorporadas incluyen `parseInt` y `Math.exp`. Una implementación puede suministrar funciones incorporadas dependientes de esa implementación, que no están descritas en esta especificación.
+
+### 4.3.30 propiedad
+
+*property, parte de un objeto que asocia una clave (ya sea un valor `String` o un valor `Symbol`) con un valor.
+
+> NOTA: dependiendo de la forma de la propiedad, el valor puede ser representado ya sea directamente por un valor de dato (un valor primitivo, objeto o una función) o indirectamente por un par de funciones accesoras.
+
+### 4.3.31 método
+
+*method*, es una función que es el valor de una propiedad.
+
+> NOTA: cuando una función es llamada como método de un objeto, el objeto es pasado a la función como su valor `this`.
+
+### 4.3.32 metodo incorporado
+
+*built-in method*, método que es una función incorporada
+
+> NOTA: los métodos estándar incorporados son definidos en esta especificación, y una implementación ECMAScript puede especificar y suministrar otros métodos incorporados adicionales. 
+
+### 4.3.33 atributo
+
+*attribute*, valor interno que define alguna característica de una propiedad.
+
+### 4.3.34 propiedad propia
+
+*own property*, propiedad que está directamente contenida por su objeto.
+
+### 4.3.35 propiedad heredada
+
+*inherit property*, propiedad de un objeto que no es una propiedad propia sino una propiedad (propia o heredada a su vez) del prototipo del objeto.
+
+## 4.4 Organización de esta especificación
+
+<span class="original-title">*Organization of this especification*<span>
+
+Lo que queda de esta especificación está organizado como sigue: 
+
+- La cláusula 5 define las convenciones de notación usadas a través de esta especificación.
+- Las cláusulas 6 a la 9, definen el entorno de ejecución dentro del cual operan los programas ECMAScript.
+- Las cláusulas 10 a la 16, definen la especificación del lenguaje mismo ECMAScript, incluyendo la codificación sintáctica y las semánticas de ejecución de todas las características del lenguaje.
+- Las cláusulas 17 a la 26, definen la biblioteca estándar de ECMAScript. Ellas incluyen las definiciones de todos los objetos estándar que están disponibles para el uso en los programas ECMAScript que los ejecuten. 
+
+
+[glosario_4_001]: www.aca-va-un-enlace-o-referencia-cruzada-a-internal-slot.com 
