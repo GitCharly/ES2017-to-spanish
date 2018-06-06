@@ -19,7 +19,7 @@ Una implementación conforme de ECMAScript no debe implementar ninguna extensió
 
 # 3. Rerencias normativas
 
-Los documentos referenciados a continuación son indispensables para la aplicación de este documento. Para referencias datadas, solo la edición citada aplica. Para referencias no datadas, la última edición del documento (correcciones incluidas) referenciado aplica.
+Los documentos referenciados a continuación son indispensables para la aplicación de este documento. Para referencias fechadas, solo la edición citada aplica. Para referencias no fechadas, la última edición del documento (correcciones incluidas) referenciado aplica.
 
 ISO/IEC 10646:2006: *Information Technology - Universal Multiple-Octet Coded Character Set (UCS) plus Amendment 1:2005, Amendment 2:2006, Amendment 3:2008, and Amendment 4:2008* más las correcciones adeicionales, o sucesoras. 
 
@@ -74,3 +74,25 @@ ECMAScript también define un conjunto de *operadores* incorporados. Los operado
 Grandes programas ECMAScript son soportados mediante *módulos*<sub>module</sub>, los cuales permiten a un programa ser dividido en múltiples secuencias de sentencias y declaraciones. Cada módulo identifica explícitamente las declaraciones que va a usar desde otro módulo y cuáles de sus declaraciones van a estar disponibles para ser usadas por otros módulos. 
 
 La sintaxis de ECMAScript se parece intencionalmente a la sintaxis de Java. La sintaxis de ECMAScript se ha relajado para hacerlo apropiado para servir como un lenguaje de scripting fácil de usar. Por ejemplo, una variable no requiere declarar su tipo o los tipos asociados con sus propiedades, y las funciones definidas no requieren tener declaraciones antes de ser llamadas.
+
+### 4.2.1 Objetos
+<sub>objects</sub>
+
+Aun cuando ECMAScript incluye sintaxis para la definición de clases, los objetos ECMAScript no están basados fundamentalmente en clases, tales como aquellos en C++, Smalltalk, o Java. En vez de eso, los objetos pueden ser creados de varios maneras incluyendo una notación literal, a traves de *constructors* los cuales crean objetos y luego ejecutan código que los inicializa total o parcialmente a traves de la asignación inicial de valores a sus propiedades. Cada constructor es una función que tiene una propiedad llamada `prototype`que es usada para implementar herencia basada en prototipo y propiedades compartidas. Los objetos son creados utilizando los constructores en expresiones `new`; por ejemplo, `new Date(2009,11)` crea un nuevo objeto del tipo `Date`. El invocar un constructor sin utilizar la palabra `new` tiene consecuencias que dependen del constructor. Por ejemplo, `Date()` produce una cadena representativa de la fecha y hora actual en vez del objeto requerido.
+
+Cada objeto creado por un constructor tiene un referencia implícita al valor de la propiedad `prototype` de su constructor (llamado el *prototipo* del objeto). Además, un prototipo puede tener una referencia *non-null* a su prototipo, y así, consecutivamente; esto es llamado "*cadena de prototipos*". Cuando una referencia es hecha a la propiedad en un objeto, esa referencia apunta a la propiedad con ese nombre en el primer objeto en la cadena de prototipos que tenga ese nombre. En otras palabras, primero se examina directamente el objeto mencionado en busca de esa propiedad; si ese objeto contiene aquella propiedad, esa será la propiedad a la que apuntará la referencia; si el objeto no contiene una propiedad con tal nombre, el prototipo de ese objeto es examinado a su vez, y asi. 
+
+![imagen](C4-F1.png "Relaciones objeto/prototipo")
+
+En un lenguaje orientado a objetos basado en clases, en general, el estado de portado por instancias, los métodos son portados por clases, y la herencia es solo de estructura y comportamiento. En ECMAScript, el estado y los métodos son portados por objetos, mientras que la estructura, el comportamiento y el estado, son todos heredados.
+
+Todos los objetos que no contienen directamente una propiedad que su prototipo si contiene, comparten esa propiedad y su valor. 
+
+Tal como lo ilustra la figura 1:
+
+**CF** es un constructor (y también un objeto). Se han creado 5 objetos usando la expresion `new`: **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>, cf<sub>5</sub>**. Cada uno de estos objetos contiene propiedades llamadas **q1** y **q2**. Las líneas punteadasm representan una relación de prototipado implícito; así, por ejemplo, el prototipo de **cf<sub>3</sub>** es **CF<sub>p</sub>**. El constructor, **CF**, tiene dos propiedades, llamadas **P1** y **P2**, las cuales no son visibles a **CF<sub>p</sub>**, **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, o **cf<sub>5</sub>**. La propiedad llamada **CFP1** en **CF<sub>p</sub>** es compartida por **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, y **cf<sub>5</sub>**, pero no por **CF**, asi como cualquier propiedad encontrada en la cadena de prototipado implícito de **CF<sub>p</sub>** que no sean **q1**, **q2** y **CFP1**. Observe que no hay una relación de prototipado implícito entre **CF** y **CF<sub>p</sub>**.
+
+A diferencia de la mayoría de los lenguajes basados en clases, las propiedades pueden ser añadidas a los objetos dinámicamente asignándoles valores. Esto quiere decir, que los constructores no están obligados a asignarle valores a cualquiera o ninguno de las propiedades de un objeto. El el diagrama anterior, uno puede añadir una nueva propiedad compartida para **cf<sub>1</sub>, cf<sub>2</sub>, cf<sub>3</sub>, cf<sub>4</sub>**, y **cf<sub>5</sub>** asignándole un valor a una nueva propiedad en **CF<sub>p</sub>**.
+
+Aunque los objetos ECMAScript no son intrínsecamente objetos basados en clase, casi siempre es conveniente definir abstracciones similares a clases sobre patrones comunes para funciones constructor, objetos `prototype` y métodos. Los mismos objetos incorporados en ECMAScript siguen este patrón similar a clases. Comenzando con ECMAScript 2015, el lenguaje ECMAScript incluye definiciones sintácticas de clase que permiten a los programadores definir de manera concisa objetos que se ajustan al mismo patron de abstracción similar a clases que es usado en los objetos incorporados. 
+
