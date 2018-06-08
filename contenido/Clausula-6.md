@@ -136,18 +136,18 @@ Los atributos son usados en esta especificaciòn para definir y explicar el esta
 | Nombre de atributo | Dominio del valor                      | Descripción                                                  |
 | ------------------ | -------------------------------------- | ------------------------------------------------------------ |
 | [[value]]          | Cualquier tipo del lenguaje ECMAScript | El valor recuperado a través del acceso get de la propiedad. |
-| [[Writable]]       | Boolean                                | Si es **false**,                                             |
-| [[Enumerable]]     | Boolean                                | Si es **true**,                                              |
-| [[Configurable]]   | Boolean                                | Si es **false**,                                             |
+| [[Writable]]       | Boolean                                | Si es **false**, los intentos de código ECMAScript de cambiar el atributo [[Value]] de la propiedad usando [[Set]] no funcionarán.                                            |
+| [[Enumerable]]     | Boolean                                | Si es **true**, la propiedad será enumerada por una enumeración for-in (vea 13.7.5). En caso contrario, se dice que la propiedad no es enumerable.                                             |
+| [[Configurable]]   | Boolean                                | Si es **false**, los intentos de borrar la propiedad, cambiar la propiedad a una propiedad de acceso, o cambiar sus atributos (distintos a [[Value]], o cambiar [[Writable]] a **false** ) fallarán.                                             |
 
 Una propiedad de acceso asocia una valor de clave con los atributos listados en la siguiente tabla (3): 
 
-| Nombre del atributo | Dominio del valor | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [[Get]]             | Object\|Undefined | Si el valor es un Objeto, debe ser un objeto función. El método interno de la función [[Call]] (tabla 6) es invocado con una lista de argumentos vacía para recuperar el valor de la propiedad cada vez que un acceso de propiedad get es ejecutado.                                                                                                                                                                                              |
+| Nombre del atributo | Dominio del valor | Descripción  |
+| ------------------- | ----------------- | ------------ |
+| [[Get]]             | Object\|Undefined | Si el valor es un Objeto, debe ser un objeto función. El método interno de la función [[Call]] (tabla 6) es invocado con una lista de argumentos vacía para recuperar el valor de la propiedad cada vez que un acceso de propiedad get es ejecutado. |
 | [[Set]]             | Object\|Undefined | Si el valor es un Objeto, debe ser un objeto función. El método interno de la función [[Call]] (tabla 6) es invocado con una lista de argumento, conteniendo el valor asignado como su único argumento cada vez que un acceso de la propiedad set es ejecutado. El método interno de una propiedad [[Set]] puede, pero no es requisito, tener un efecto en el valor devuelto por llamadas subsecuentes al método interno de la propiedad [[Get]]. |
-| [[Enumerable]]      | Boolean           | Si es **true**, la propiedad debe ser enumerada por una enumeración for-in (ver 13.7.5). De lo contrario, se dice de la propiedad que no es enumerable.                                                                                                                                                                                                                                                                                           |
-| [[Configurable]]    | Boolean           | Si es **false**, los intentos de borrar la propiedad, cambiarla a una propiedad de dato, o cambiar sus atributos, fallarán.                                                                                                                                                                                                                                                                                                                       |
+| [[Enumerable]]      | Boolean           | Si es **true**, la propiedad debe ser enumerada por una enumeración for-in (ver 13.7.5). De lo contrario, se dice de la propiedad que no es enumerable. |
+| [[Configurable]]    | Boolean           | Si es **false**, los intentos de borrar la propiedad, cambiarla a una propiedad de dato, o cambiar sus atributos, fallarán.|
 
 
 Si los valores iniciales de los atributos de una propiedad no son especificados explícitamente por esta especificación, los valores por defecto definidos en la tabla 4 serán utilizados: 
@@ -163,11 +163,54 @@ Si los valores iniciales de los atributos de una propiedad no son especificados 
 
 
 #### 6.1.7.2 Metodos internos y ranuras internas del objeto
+<span class="original-title">Object Internal Methods and Internal Slots</span>
+
+La semántica interna de los objetos en ECMAScript, está especificada a través de algoritmos llamados "*métodos internos*". Cada objeto en un motor ECMAScript es asociado con un conjunto de métodos internos que definen su comportamiento en tiempo de ejecución. Estos métodos internos no son parte del lenguaje ECMAScript. Ellos son definidos por esta especificación solo con propósitos expositorios. Sin embargo, cada objeto dentro de una implementación ECMAScript debe comportarse según lo especificado por el método interno asociado con él. La manera exacta en la que lo logra es determinado por la implementación. 
+
+Los nombres de los métodos internos son polimórficos. Esto quiere decir que valores objeto distinto pueden ejecutar algoritmos distintos cuando un nombre común de método interno es invocado sobre ellos. El objeto puntual sobre el cual un método interno es invocado es el "target" de la invocación. Si, durante el tiempo de ejecución, la implementación de un algoritmo intenta usar un método interno de un objeto que el objeto no soporta, será arrojada una excepción **TypeError**.
+
+Las ranuras internas corresponden al estado interno que es asociado con los objetos y usado por varios algoritmos de la especificación ECMAScript. Las ranuras internas no son propiedades de objeto y no son heredables. Dependiendo de la especificación de una ranura interna específica, aquel estado puede consistir en valores de cualquier tipo del lenguaje ECMAScript o de los valores de los tipos de la especificación ECMAScript. A no ser que se especifique lo contrario, las ranuras internas son asignadas com parte del proceso de creación de un objeto y no pueden ser agregadas dinámicamente a un objeto. A menos que se indique lo contrario, el valor inicial de una ranura interna es el valor **undefined** . Varios algoritmos dentro de esta especificación crean objetos que tienen ranuras internas. Sin embargo, el lenguaje ECMAScript no suministra ninguna manera directa de asociar una ranura interna a un objeto. 
+
+Tanto las ranuras como los métodos internos, son identificados en esta especificación usando nombres encerrados en doble corchete cuadrado [[*nombre*]].
+
+La tabla 5 resume los *métodos internos esenciales* usados por esta especificación que son aplicables a todos los objetos creados o manipulados por código ECMAScript. Cada objeto debe tener algoritmos para todos los métodos internos esenciales. Sin embargo, no todos los objetos usan necesariamente los mismos algoritmos para los mismos métodos. 
+
+La columna "firma" de la tabla 5 y otras tablas similares, describen el patrón de invocación para cada método interno. El patrón de invocación siempre incluye una lista en paréntesis de los nombres descriptivos de los parámetros. Si un nombre de parámetro es el mismo que un nombre de tipo ECMAScript entonces el nombre describe el tipo del valor requerido para tal parámetro. Si un método interno explícitamente retorna un valor, su lista parámetro es seguido por el símbolo "<span>&#8594;</span>" y el nombre del tipo del valor retornado. Los nombres de tipo usados en la firma se refieren a los tipos definidos en la cláusula 6 aumentados por el siguiente nombre adicional. "*any*" quiere decir que el valor puede ser de cualquier tipo del lenguaje ECMAScript. Un método interno implícitamente devuelve un "Registro de finalización" (sic: **Completion Record**). En adición a su parámetro, un método interno siempre tiene acceso al objeto que es el target de su invocación.
+
+> [**Tabla 5**][6-006] 
+
+|Método Interno|Firma|Descripción|
+|--------------|-----|-----------|
+|[[GetPrototypeOf]]|()<span>&#8594;</span>Object \| Null|Determina el objeto que suministra propiedades heredadas para este objeto. Un valor `null` indica que no hay propiedades heredadas.|
+|[[SetPrototypeOf]]|(Object \| Null)<span>&#8594;</span>Boolean|Asocia este objeto con otro objeto que suministra propiedades heredables. Pasarle `null` indica que no hay propiedades heredables. Devuelve `true` indicando que la operación fue finalizada exitosamente, o `false` indicando que la operación no fue exitosa.|
+|[[IsExtensible]]|()<span>&#8594;</span>Boolean|Determina si está permitido agregar propiedades adicionales a este objeto.|
+|[[PreventExtensions]]|()<span>&#8594;</span>Boolean|Controla si nuevas propiedades pueden ser agregadas a un objeto. Devuelve `true` si la operación fue completada exitosamente o `false` si la operación no fue exitosa.|
+|[[GetOwnProperty]]|(*propertyKey*)<span>&#8594;</span>Undefined \| Property Descriptor|Devuelve un descriptor de propiedades (sic *Property Descriptor*, para la propia propiedad de este objeto cuya clave es *propertyKey*, o `undefined` si tal propiedad no existe.|
+|[[DefineOwnProperty]]|(*propertyKey, PropertyDescriptor*)<span>&#8594;</span>Boolean|Crea o modifica la propia propiedad, cuyo valor es *propertyKey*, para tener el estado descrito por *PropertyDescriptor*. Devuelve `true` si la propiedad fue creada/actualizada exitosamente, o `false` si la propiedad no pudo ser creada o actualizada.|
+|[[HasProperty]]|(*propertyKey*)<span>&#8594;</span>Boolean|Devuelve un valor booleano indicando si el objeto ya tiene un propiedad, propia o heredada, cuya clave es *propertyKey*.|
+|[[Get]]|(*propertyKey, Receiver*)<span>&#8594;</span>*any*|Devuelve el valor de la propiedad cuyo valor es *propertyKey* de este objeto. Si cualquier código ECMAScript |
+|[[Set]]|(*propertyKey, value, Receiver*)<span>&#8594;</span>Boolean||
+|[[Delete]]|(*propertyKey*)<span>&#8594;</span>Boolean||
+|[[OwnPropertyKeys]]|()<span>&#8594;</span>**List** of propertyKeys||
+
+La tabla 6, resume métodos internos esenciales adicionales que son soportados por objetos que pueden ser llamados como una función. Un objeto función es un objeto que soporta el método interno [[Call]]. Un *constructor* es un objeto función que soporta el método interno [[Construct]].
+
+> [**Tabla 6**][6-007] 
+
+|Método interno|Firma|Descripción|
+|--------------|-----|-----------|
+|[[Call]]|(*any*, a **List** of *any*) <span>&#8594;</span> *any*|Ejecuta código asociado con este objeto. Invocado a través de la expresión de llamada de la función. Los argumentos para el método interno son un valor **this** y una lista conteniendo los argumentos pasados a la función a través de la expresión de llamada. Los objetos que pueden implementar este método interno son llamados "*callables*"| 
+|[[Construct]]|(a **List** of *any*, Object) <span>&#8594;</span> Object|Crea un objeto. Invocado a traves de los operadores `new` o `super`. El primer argumento para el método interno es una lista conteniendo los argumentos del operador. El segundo argumento es el objeto al cual el operador `new` fue inicialmente aplicado. Los objetos que implementan este método interno son llamados "*constructors*". Una función objeto no es necesariamente un constructor y tal función "no-constructor" no tiene un método interno [[Construct]].|
+
+Las semánticas de los métodos internos esenciales para los objetos ordinarios y los objetos exóticos estándar están especificadas en la cláusula 9. Si cualquiera de los usos especificados de un método interno de un objeto exótico no es soportado por una implementación, ese uso debe arrojar una excepción del tipo **TypeError** cuando sea intentado. 
+
+#### 6.1.7.3 Invariantes de los métodos internos esenciales
+<span class="">Invariants of the Essential Internal Methods</span>
 
 
 
 [6-001]: www.aca-va-una-explicacion-sobre-lo-que-es-locale.com
-
-
+[6-006]: www.aca-una-referencia-cruzada-a-la-tabla-5.com
+[6-007]: www.aca-una-referencia-cruzada-a-la-tabla-6.com
 
 
