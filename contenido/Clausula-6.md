@@ -56,19 +56,21 @@ Los Symbols bien conocidos, son valores `Symbols` incorporados que hacen referen
 
 Dentro de esta especificación un symbol bien conocido es referido utilizando una notación con la forma @@nombre, donde "nombre" es uno de los valores listados en la tabla a continuación: 
 
-| Nombre en la especificación | [[Descripcion]]             | Valor y propósito                                                                                                                                                                 |  |
-| --------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| @@hasInstance               | "Symbol.hasInstance"        | Un método que determina si un objeto constructor reconoce un objeto como una de las instancias de su constructor. Invocada por las semánticas del operador `instanceof`           |
-| @@isConcatSpreadable        | "Symbol.isConcatSpreadable" | Una propiedad con valor booleano que es si es `true` indica que `Array.prototype.concat` debe aplanar un objeto a sus elementos array.                                            |
-| @@iterator                  | "Symbol.iterator"           | Un método que devuelve el Iterador por defecto para un objeto. Invocado por las semánticas de la sentencia `for-of`.                                                              |
-| @@match                     | "Symbol.match"              | Un método de expresión regular que hace coincidir la expresión regular contra una string. Invocada por el método `String.prototype.match`                                         |
-| @@replace                   | "Symbol.replace"            | Un métodod de expresión regular que reemplaza la substring coincidente en una string. Invocada por el método `String.prototype.replace`                                           |
-| @@search                    | "Symbol.search"             | Un método de expresión regular que devuelve el índice dentro de una string que coincide con la expresión regular. Invocado por el método `String.prototype.search`                |
-| @@species                   | "Symbol.species"            | Una propiedad con valor función que es la función constructor que es usada para crear objetos derivados.                                                                          |
-| @@split                     | "Symbol.split"              | Un método de expresión regular que divide un string en el índice que coincide con la expresión regular. Invocado por el método `String.prototype.split`                           |
-| @@toPrimitive               | "Symbol.toPrimitive"        | Un método que convierte un objeto en un valor primitivo correspondiente. invocado por la operación abstracta *ToPrimitive*                                                        |
-| @@toStringTag               | "Symbol.toStringTag"        | Una propiedad con valor String que es usada en la creación de la descripción string por defecto del objeto. Accesible a través del método incorporado `Object.prototype.toString` |
-| @@unscopables               | "Symbol.unscoplables"       | Una propiedad con valor objeto, cuyos nombres de propiedad propios y heredados están excluidos del marco de entorno de `with` asociado al objeto.                                 |
+
+| Nombre en la especificación | [[Descripcion]]             | Valor y propósito   |
+| ------------ | -------------- | --------------- |
+| @@hasInstance | Symbol.hasInstance"  | Un método que determina si un objeto constructor reconoce un objeto como una de las instancias de su constructor. Invocada por las semánticas del operador `instanceof`   |
+| @@isConcatSpreadable  | "Symbol.isConcatSpreadable" | Una propiedad con valor booleano que es si es `true` indica que `Array.prototype.concat` debe aplanar un objeto a sus elementos array.     |
+| @@iterator | "Symbol.iterator" | Un método que devuelve el Iterador por defecto para un objeto. Invocado por las semánticas de la sentencia `for-of`.                     |
+| @@match | "Symbol.match" | Un método de expresión regular que hace coincidir la expresión regular contra una string. Invocada por el método `String.prototype.match`         |
+| @@replace | "Symbol.replace" | Un métodod de expresión regular que reemplaza la substring coincidente en una string. Invocada por el método `String.prototype.replace`      |
+| @@search  | "Symbol.search" | Un método de expresión regular que devuelve el índice dentro de una string que coincide con la expresión regular. Invocado por el método `String.prototype.search`  |
+| @@species | "Symbol.species" | Una propiedad con valor función que es la función constructor que es usada para crear objetos derivados.   |
+| @@split | "Symbol.split" | Un método de expresión regular que divide un string en el índice que coincide con la expresión regular. Invocado por el método `String.prototype.split` |
+| @@toPrimitive | "Symbol.toPrimitive" | Un método que convierte un objeto en un valor primitivo correspondiente. invocado por la operación abstracta *ToPrimitive*  |
+| @@toStringTag | "Symbol.toStringTag" | Una propiedad con valor String que es usada en la creación de la descripción string por defecto del objeto. Accesible a través del método incorporado `Object.prototype.toString` |
+| @@unscopables | "Symbol.unscoplables" | Una propiedad con valor objeto, cuyos nombres de propiedad propios y heredados están excluidos del marco de entorno de `with` asociado al objeto. |
+
 
 ## 6.1.6 El tipo Number
 <span class="original-title">The Number Type</span>
