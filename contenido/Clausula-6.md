@@ -56,8 +56,8 @@ Los Symbols bien conocidos, son valores `Symbols` incorporados que hacen referen
 
 Dentro de esta especificación un symbol bien conocido es referido utilizando una notación con la forma @@nombre, donde "nombre" es uno de los valores listados en la tabla a continuación: 
 
-| Nombre en la especificación | [[Descripcion]]             | Valor y propósito | 
-| --------------------------- | --------------------------- | --------------------------------------------------- |
+| Nombre en la especificación | [[Descripcion]]             | Valor y propósito                                                                                                                                                                 |  |
+| --------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | @@hasInstance               | "Symbol.hasInstance"        | Un método que determina si un objeto constructor reconoce un objeto como una de las instancias de su constructor. Invocada por las semánticas del operador `instanceof`           |
 | @@isConcatSpreadable        | "Symbol.isConcatSpreadable" | Una propiedad con valor booleano que es si es `true` indica que `Array.prototype.concat` debe aplanar un objeto a sus elementos array.                                            |
 | @@iterator                  | "Symbol.iterator"           | Un método que devuelve el Iterador por defecto para un objeto. Invocado por las semánticas de la sentencia `for-of`.                                                              |
@@ -129,10 +129,38 @@ Todos los objetos son lógicamente colecciones de propiedades, pero hay múltipl
 #### 6.1.7.1 Atributos de las propiedades
 <span class="original-title">Property Attributes</span>
 
+Los atributos son usados en esta especificaciòn para definir y explicar el estado de las propiedades de un Objeto. Una propiedad de datos asocia el valor de una clave con los atributos listados en la siguiente tabla (2): 
+
+| Nombre de atributo | Dominio del valor                      | Descripción                                                  |
+| ------------------ | -------------------------------------- | ------------------------------------------------------------ |
+| [[value]]          | Cualquier tipo del lenguaje ECMAScript | El valor recuperado a través del acceso get de la propiedad. |
+| [[Writable]]       | Boolean                                | Si es **false**,                                             |
+| [[Enumerable]]     | Boolean                                | Si es **true**,                                              |
+| [[Configurable]]   | Boolean                                | Si es **false**,                                             |
+
+Una propiedad de acceso asocia una valor de clave con los atributos listados en la siguiente tabla (3): 
+
+| Nombre del atributo | Dominio del valor | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [[Get]]             | Object\|Undefined | Si el valor es un Objeto, debe ser un objeto función. El método interno de la función [[Call]] (tabla 6) es invocado con una lista de argumentos vacía para recuperar el valor de la propiedad cada vez que un acceso de propiedad get es ejecutado.                                                                                                                                                                                              |
+| [[Set]]             | Object\|Undefined | Si el valor es un Objeto, debe ser un objeto función. El método interno de la función [[Call]] (tabla 6) es invocado con una lista de argumento, conteniendo el valor asignado como su único argumento cada vez que un acceso de la propiedad set es ejecutado. El método interno de una propiedad [[Set]] puede, pero no es requisito, tener un efecto en el valor devuelto por llamadas subsecuentes al método interno de la propiedad [[Get]]. |
+| [[Enumerable]]      | Boolean           | Si es **true**, la propiedad debe ser enumerada por una enumeración for-in (ver 13.7.5). De lo contrario, se dice de la propiedad que no es enumerable.                                                                                                                                                                                                                                                                                           |
+| [[Configurable]]    | Boolean           | Si es **false**, los intentos de borrar la propiedad, cambiarla a una propiedad de dato, o cambiar sus atributos, fallarán.                                                                                                                                                                                                                                                                                                                       |
 
 
+Si los valores iniciales de los atributos de una propiedad no son especificados explícitamente por esta especificación, los valores por defecto definidos en la tabla 4 serán utilizados: 
+
+| Nombre del atributo | Valor por defecto |
+| ------------------- | ----------------- |
+| [[Value]]           | undefined         |
+| [[Get]]             | undefined         |
+| [[Set]]             | undefined         |
+| [[Writable]]        | false             |
+| [[Enumerable]]      | false             |
+| [[Configurable]]    | false             |
 
 
+#### 6.1.7.2 Metodos internos y ranuras internas del objeto
 
 
 
