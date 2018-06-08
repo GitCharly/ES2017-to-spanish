@@ -188,10 +188,10 @@ La columna "firma" de la tabla 5 y otras tablas similares, describen el patrón 
 |[[GetOwnProperty]]|(*propertyKey*)<span>&#8594;</span>Undefined \| Property Descriptor|Devuelve un descriptor de propiedades (sic *Property Descriptor*, para la propia propiedad de este objeto cuya clave es *propertyKey*, o `undefined` si tal propiedad no existe.|
 |[[DefineOwnProperty]]|(*propertyKey, PropertyDescriptor*)<span>&#8594;</span>Boolean|Crea o modifica la propia propiedad, cuyo valor es *propertyKey*, para tener el estado descrito por *PropertyDescriptor*. Devuelve `true` si la propiedad fue creada/actualizada exitosamente, o `false` si la propiedad no pudo ser creada o actualizada.|
 |[[HasProperty]]|(*propertyKey*)<span>&#8594;</span>Boolean|Devuelve un valor booleano indicando si el objeto ya tiene un propiedad, propia o heredada, cuya clave es *propertyKey*.|
-|[[Get]]|(*propertyKey, Receiver*)<span>&#8594;</span>*any*|Devuelve el valor de la propiedad cuyo valor es *propertyKey* de este objeto. Si cualquier código ECMAScript |
-|[[Set]]|(*propertyKey, value, Receiver*)<span>&#8594;</span>Boolean||
-|[[Delete]]|(*propertyKey*)<span>&#8594;</span>Boolean||
-|[[OwnPropertyKeys]]|()<span>&#8594;</span>**List** of propertyKeys||
+|[[Get]]|(*propertyKey, Receiver*)<span>&#8594;</span>*any*|Devuelve el valor de la propiedad cuyo valor es *propertyKey* de este objeto. Si cualquier código ECMAScript debe ser ejecutado para recuperar el valor de la propiedad, *Receiver* es usado como el valor `this` cuando se evalúa el código.|
+|[[Set]]|(*propertyKey, value, Receiver*)<span>&#8594;</span>Boolean|Configura el valor de la propiedad cuya clave es *propertyKey* a *value*. Si cualquier código ECMAScript debe ser ejecutado para configurar el valor de la propiedad, *Receiver* es usado como el valor `this` cuando se evalua el código. Devuelve `true` si la propiedad fue configurada o `false` si no lo fue.|
+|[[Delete]]|(*propertyKey*)<span>&#8594;</span>Boolean|Elimina la propiedad propia cuya clave es *propertyKey* de este objeto. Devuelve `false` si la propiedad no fue eliminada y aún está presente. Devuelve `true` si la propiedad fue eliminada o ya no está presente.|
+|[[OwnPropertyKeys]]|()<span>&#8594;</span>**List** of propertyKeys|Devuelve una **Lista** cuyos elementos son todas las propiedades propias para un objeto.|
 
 La tabla 6, resume métodos internos esenciales adicionales que son soportados por objetos que pueden ser llamados como una función. Un objeto función es un objeto que soporta el método interno [[Call]]. Un *constructor* es un objeto función que soporta el método interno [[Construct]].
 
