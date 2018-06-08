@@ -114,6 +114,22 @@ Algunos operadores ECMAScript trabajan solo con enteros en rangos específicos, 
 ### 6.1.7 El tipo Object
 <span class="original-title">The Object Type</span>
 
+Un objeto es lógicamente una colección de propiedades. Cada propiedad es o bien una propiedad de dato, o una propiedad de acceso. 
+- *Una propiedad de dato* asocia el valor de una clave con un valor del lenguage ECMAScript y un conjunto de atributos booleanos. 
+- *Una propiedad de acceso* asocia el valor de una clave con una o dos funciones de acceso, y un conjunto de atributos booleanos. Las funciones de acceso son utilizadas para almacenar o recuperar un valor del lenguaje ECMAScript que está asociado con la propiedad.
+
+Las propiedades son identificadas usando los valores de las claves. Un valor de clave de propiedad es o un valor String ECMAScript o un valor Symbol. Todos los valores String y Symbol, incluyendo la string vacía, son válidas como claves de propiedades. Un *nombre de propiedad* es una clave de propiedad que es un valor String.
+
+Un *indice entero* es un clave de propiedad con valor String que es una String numérica canónica y cuyo valor numérico es o bien +0 o un entero positivo menor o igual a 2<sup>53</sup>-1. Un *índice arreglo* es un índice entero cuyo valor numérico *i* está en el rango +0 <span>#&8804;</span> *i* < 2<sup>32</sup>-1.
+
+Las claves de propiedades son usadas para acceder a las propiedades y sus valores. Hay dos clases de acceso a las propiedades: *get* y *set*, correspondiendo a la recuperaciòn de un valor o a su asignación, respectivamente. Las propiedades accesibles a traves de get y set incluyen tanto las *propiedades propias* que son parte directa de un objeto y las *propiedades heredadas* que son suministradas por otro objeto asociado, a través de una relación de herencia. Incluso, las propiedades heredadas, pueden ser tanto propiedades propias como heredadas del objeto asociado. Cada propiedad propia de un objeto debe tener un valor de clave que es distinto al valor de clave la de las propiedades propias del otro objeto. 
+
+Todos los objetos son lógicamente colecciones de propiedades, pero hay múltiples formas de objetos que difieren en su semántica tanto para el acceso como para la manipulación de sus propiedades. Los *objeto ordinarios* son la forma más común de objetos y tienen las semánticas por defecto de un objeto. Un *objeto exótico* es cualquier forma de objeto en que la semántica de sus propiedades difiere de cualquier manera de las semánticas por defecto.
+
+#### 6.1.7.1 Atributos de las propiedades
+<span class="original-title">Property Attributes</span>
+
+
 
 
 
