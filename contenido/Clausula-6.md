@@ -304,10 +304,10 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 
 |Nombre Intrínseco|Nombre Global|Asociación en el Lenguaje ECMAScript|
 |-----------------|-------------|------------------------------------|
-|[%Array%][6-015]|Array|[()][6-015]|
-|[%ArrayBuffer%][6-015]|ArrayBuffer|[()][6-015]|
-|[%ArrayBufferPrototype%][6-015]|ArrayBuffer.prototype|[()][6-015]|
-|[%ArrayIteratorPrototype%][6-015]||[()][6-015]|
+|[%Array%][6-015]|Array|El constructor **Array** [(22.1.1)][6-015]|
+|[%ArrayBuffer%][6-016]|ArrayBuffer|El constructor de **ArrayBuffer** [(24.1.2)][6-016]|
+|[%ArrayBufferPrototype%][6-017]|ArrayBuffer.prototype|El valor inicial de la propiedad de datos **prototype** de [%ArrayBuffer%][6-017]|
+|[%ArrayIteratorPrototype%][6-018]||El prototipo del objeto iterador de Array [(22.1.5)][6-018]|
 |[%ArrayPrototype%][6-015]|Array.prototype|[()][6-015]|
 |[%ArrayProto_values%][6-015]|Array.prototype.values|[()][6-015]|
 |[%AsyncFunction%][6-015]||[()][6-015]|
@@ -419,10 +419,10 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-014]: www.referencia-cruzada-a-tabla-7.com
 
-[6-015]: www.referencia-cruzada-a-8-3.com
-[6-016]: www.referencia-cruzada-a-8-3.com
-[6-017]: www.referencia-cruzada-a-8-3.com
-[6-018]: www.referencia-cruzada-a-8-3.com
+[6-015]: www.referencia-cruzada-a-22-1-1.com
+[6-016]: www.referencia-cruzada-a-24-1-2.com
+[6-017]: www.referencia-cruzada-a-24-1-2.com
+[6-018]: www.referencia-cruzada-a-22-1-5-3.com
 [6-019]: www.referencia-cruzada-a-8-3.com
 [6-020]: www.referencia-cruzada-a-8-3.com
 [6-021]: www.referencia-cruzada-a-8-3.com
