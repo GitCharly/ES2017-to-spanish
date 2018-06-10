@@ -207,10 +207,307 @@ Las semánticas de los métodos internos esenciales para los objetos ordinarios 
 #### 6.1.7.3 Invariantes de los métodos internos esenciales
 <span class="">Invariants of the Essential Internal Methods</span>
 
+Los métodos internos de los objetos de un motor ECMAScript deben ajustarse a la lista de invariantes especificadas más abajo. Tanto los objetos ordinarios como los objetos exóticos estándar de ECMAScript en esta especificación mantienen estas invariantes. Los objetos Proxy de ECMAScript mantienen estas invariantes mediante la comprobación en tiempo de ejecución del resultado de las trampas invocadas en el objeto [[ProxyHandler]].
 
+Cualquier implementación que suministre objetos exóticos debe también mantener estas invariantes para estos objetos. La violación de estas invariantes puede causar que el código ECMAScript se comporte de manera impredecible y crear problemas de seguridad. Aun así, la violación de estas invariantes nunca debe comprometer la seguridad de memoria de una implementación. 
+
+Una implementación no debe permitir esquivar estas invariantes de ninguna manera, como por ejemplo proporcionando interfaces alternativas que implementen la funcionalidad de los métodos internos esenciales sin imponer sus invariantes. 
+
+Definiciones: 
+
+- El *target* de un método interno es el objeto sobre el cual se invoca el método interno.
+- Un target es *non-extensible* si se ha observado que su método interno [[IsExtensible]] devuelve `false`, o si [[PreventExtensions]] devuelve `true`.
+- Una propiedad *non-existent* es una propiedad que no existe como propiedad propia en un target non-extensible.
+- Todas las referencias a *SameValue* están de acuerdo a la definición del algoritmo [**SameValue**][6-008].
+
+__[[GetPrototypeOf]] ()__
+
+- El tipo del valor devuelto debe ser `object` o `Null`.
+- Si el target es *non-extensible*, y [[GetPrototypeOf]] devuelve un valor *v*, entonces toda llamada futura a [[GetPrototypeOf]] debería devolver **Same Value** en *v*.
+
+> NOTA 1: La cadena de prototipo de un objeto debería tener un largo finito (esto es, comenzando en cualquier objeto, la aplicación recursiva del método interno [[GetPrototypeOf]] a su resultado debería eventualmente conducir a un valor `null`). Sin embargo, este requisito no es imponible al nivel invariante de un objeto si la cadena de prototipo incluye cualquier objeto exótico que no usa la definición de objetos ordinarios para [[GetPrototypeOf]]. Tal cadena de prototipo circular puede resultar en loops infinitos cuando se accede a las propiedades del objeto.
+
+__[[SetPrototypeOf]] (*V*)__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si el target es *non-extensible*, [[SetPrototype]] debe devolver **false**, a no ser que *V* sea **SameValue** que el valor del [[GetPrototypeOf]] del target observado.
+
+__[[IsExtensible]] ()__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si [[IsExtensible]] devuelve **false**, todas las llamadas a [[IsExtensible]] en el target deben devolver **false**.
+
+__[[PreventExtensions]] ()__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si [[PreventExtensions]] devuelve **true**, todas las futuras llamadas a [[IsExtensible]] en el target deben devolver **false** y el target se considerará *non-extensible*.
+
+__[[GetOwnProperty]] (*P*)__
+
+- El tipo del valor devuelto debe ser o `Undefined` o [_Property Descriptor_][6-009].
+- Si el tipo del valor devuelto es *Property Descriptor*, el valor devuelto debe ser un property descriptor completo. [(vea 6.2.5.6)][6-010]. 
+- Si una propiedad *P* es descrita como una propiedad de datos con Desc.[[Value]] igual a v, y Desc.[[Writable]] y Desc.[[Configurable]] ambos falsos, entonces el *SameValue* debe ser devuelto para el atributo de la propiedad Desc.[[Value]] en todas las llamadas futuras a [[GetOwnProperty]] (P).
+- Si otros atributos de P distintos que [[Writable]] pueden cambiar en el tiempo, o si la propiedad pudiera desaparecer, entonces el atributo de P [[Configurable]] debe ser true.
+- Si el atributo [[Writable]] puede cambiar de false a true, entonces el atributo [[Configurable]] debe ser true.
+- Si el target es *non-extensible* y P es non-existent, entonces todas las futuras llamadas a [[GetOwnProperty]] (P) en el target deben describir P como non-existent (o sea, [[GetOwnProperty]] (P) debe devolver undefined).
+
+> NOTA 2: Como consecuencia del tercer invariante, si una propiedad es descrita como una propiedad de datos y esta puede devolver valores diferentes en el tiempo, entonces uno o ambos atributos Desc.[[Writable]] y Desc.[[Configurable]] deben devolver true incluso si ningún mecanismo para cambiar el valor es expuesto a través de otro método interno.
+
+__[[DefineOwnProperty]] (*P, Desc*)__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- [[DefineOwnProperty]] debe devolver false si P se ha observado previamente como una propiedad propia non-configurable del target, a menos que: 
+    - P sea una propiedad propia de datos non-configurable writable. Una propiedad de datos non-configurable writable puede ser cambiada en una propiedad de datos non-configurable, non-writable.
+    - Todos los atributos en Desc son el **SameValue** de los atributos de P.
+- [[DefineOwnProperty]] (P, Desc) debe devolver false si el target es non-extensible y P es una propiedad propia non-existent. Esto es, un objeto target non-extensible no puede ser extendido con nuevas propiedades.
+
+__[[HasProperty]] (*P*)__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si P fue observado previamente como un dato non-configurable o un propiedad de acceso propia del target, [[HasProperty]] debe devolver true.
+
+__[[Get]] (*P, Receiver*)__
+
+- Si P fue observado previamente como una propiedad propia de datos non-configurable, non-writable del target con valor *v*, entonces [[Get]] debe devolver **SameValue**.
+- Si P fue observado previamente como una propiedad propia de acceso non-configurable del target cuyo atributo [[Get]] es undefined, la operación [[Get]] debe devolver undefined.
+
+__[[Set]] (*P, V, Receiver*)__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si P fue observado previamente como una propiedad propia de datos non-writable del target, entonces [[Set]] debe devolver false a menos que V sea **SameValue** que el atributo [[Value]] de P.
+- Si P fue observado previamente como una propiedad propia de acceso del target cuyo atributo [[Set]] es undefined, la operación [[Set]] debe devolver false.
+
+__[[Delete]] (*P*)__
+
+- El tipo del valor devuelto debe ser `Boolean`.
+- Si P fue observado previamente como una propiedad propia de acceso non-configurable del target, [[Delete]] debe devolver false.
+
+__[[OwnPropertyKeys]] ()__
+
+- El valor devuelto debe ser una [**List**][6-011].
+- El tipo de cada elemento de la List devuelta debe ser `String` o `Symbol`.
+- La List devuelta debe contener al menos las claves de todas las propiedades propias non-configurables que han sido previamente observadas. 
+- Si el objeto es non-extensible, la List devuelta debe contener solo las claves de todas las propiedades propias del objeto que es observable utilizando [[GetOwnProperty]].
+
+__[[Construct]] ()__
+
+- El tipo del valor devuelto debe ser `Object`.
+
+#### 6.1.7.4 Objetos Intrínsecos bien-conocidos
+<span class="original-title">Well-Known Intrinsic Objects</span>
+
+Los objeto bien-conocidos intrínsecos, son objetos que están explícitamente referenciados por los algoritmos de esta especificación, los cuales usualmente tienen identidades especificas a un [realm][6-012]. A menos que se especifique lo contrario, cada objeto intrínseco en realidad corresponde a un conjunto de objetos similares, uno por *realm*.
+
+Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un objeto intrínseco, asociado con el correspondiente *realm*, según su nombre. La determinación del *realm* actual y sus intrínsecos es descrita en [8.3][6-013]. Los objetos intrínsecos bien-conocidos están listados en la siguiente tabla: 
+
+> [Tabla 7: Objetos intrínsecos bien conocidos][6-014]
+
+|Nombre Intrínseco|Nombre Global|Asociación en el Lenguaje ECMAScript|
+|-----------------|-------------|------------------------------------|
+|[%Array%][6-015]|Array|[()][6-015]|
+|[%ArrayBuffer%][6-015]|ArrayBuffer|[()][6-015]|
+|[%ArrayBufferPrototype%][6-015]|ArrayBuffer.prototype|[()][6-015]|
+|[%ArrayIteratorPrototype%][6-015]||[()][6-015]|
+|[%ArrayPrototype%][6-015]|Array.prototype|[()][6-015]|
+|[%ArrayProto_values%][6-015]|Array.prototype.values|[()][6-015]|
+|[%AsyncFunction%][6-015]||[()][6-015]|
+|[%AsyncFunctionPrototype%][6-015]||[()][6-015]|
+|[%Atomics%][6-015]|Atomics|[()][6-015]|
+|[%Boolean%][6-015]|Boolean|[()][6-015]|
+|[%BooleanPrototype%][6-015]|Boolean.Prototype|[()][6-015]|
+|[%DataView%][6-015]|DataView|[()][6-015]|
+|[%DataViewPrototype%][6-015]|DataView.prototype|[()][6-015]|
+|[%Date%][6-015]|Date|[()][6-015]|
+|[%DatePrototype%][6-015]|Date.prototype|[()][6-015]|
+|[%decodeURI%][6-015]|decodeURI|[()][6-015]|
+|[%decodeURIComponent%][6-015]|decodeURIComponent|[()][6-015]|
+|[%encodeURI%][6-015]|encodeURI|[()][6-015]|
+|[%encodeURIComponent%][6-015]|encodeURIComponent|[()][6-015]|
+|[%Error%][6-015]|Error|[()][6-015]|
+|[%ErrorPrototype%][6-015]|Error.prototype|[()][6-015]|
+|[%eval%][6-015]|eval|[()][6-015]|
+|[%EvalError%][6-015]|EvalError|[()][6-015]|
+|[%EvalErrorPrototype%][6-015]|EvalError.prototype|[()][6-015]|
+|[%Float32Array%][6-015]|Float32Array|[()][6-015]|
+|[%Float32ArrayPrototype%][6-015]|Float32Array.prototype|[()][6-015]|
+|[%Float64Array%][6-015]|Float64Array|[()][6-015]|
+|[%Float64ArrayPrototype%][6-015]|Float64.prototype|[()][6-015]|
+|[%Function%][6-015]|Function|[()][6-015]|
+|[%FunctionPrototype%][6-015]|Function.prototype|[()][6-015]|
+|[%Generator%][6-015]||[()][6-015]|
+|[%GeneratorFunction%][6-015]||[()][6-015]|
+|[%GeneratorPrototype%][6-015]||[()][6-015]|
+|[%Int8Array%][6-015]|Int8Array|[()][6-015]|
+|[%Int8ArrayPrototype%][6-015]|Int8Array.prototype|[()][6-015]|
+|[%Int16Array%][6-015]|int16Array|[()][6-015]|
+|[%Int16ArrayPrototype%][6-015]|Int16Array.prototype|[()][6-015]|
+|[%Int32Array%][6-015]|Int32Array|[()][6-015]|
+|[%Int32ArrayPrototype%][6-015]|Int32Array.prototype|[()][6-015]|
+|[%isFinite%][6-015]|isFinite|[()][6-015]|
+|[%isNaN%][6-015]|isNaN|[()][6-015]|
+|[%IteratorPrototype%][6-015]||[()][6-015]|
+|[%JSON%][6-015]|JSON|[()][6-015]|
+|[%Map%][6-015]|Map|[()][6-015]|
+|[%MapIteratorPrototype%][6-015]||[()][6-015]|
+|[%MapPrototype%][6-015]|Map.prototype|[()][6-015]|
+|[%Math%][6-015]|Math|[()][6-015]|
+|[%Number%][6-015]|Number|[()][6-015]|6-015
+|[%NumberPrototype%][6-015]|Number.prototype|[()][6-015]|
+|[%Object%][6-015]|Object|[()][6-015]|
+|[%ObjectPrototype%][6-015]|Object.prototype|[()][6-015]|
+|[%ObjProto_toString%][6-015]|Object.prototype.toString|[()][6-015]|
+|[%ObjProto_valueOf%][6-015]|Object.prototype.valueOf|[()][6-015]| 
+|[%parseFloat%][6-015]|parseFloat|[()][6-015]|
+|[%parseInt%][6-015]|parseInt|[()][6-015]|
+|[%Promise%][6-015]|Promise|[()][6-015]|
+|[%PromisePrototype%][6-015]|Promise.prototype|[()][6-015]|
+|[%Proxy%][6-015]|Proxy|[()][6-015]|
+|[%RangeError%][6-015]|RangeError|[()][6-015]|
+|[%RangeErrorPrototype%][6-015]|RangeError.prototype|[()][6-015]|
+|[%ReferenceError%][6-015]|ReferenceError|[()][6-015]|
+|[%ReferenceErrorPrototype%][6-015]|ReferenceError.prototype|[()][6-015]|
+|[%Reflect%][6-015]|Reflect|[()][6-015]|
+|[%RegExp%][6-015]|RegExp|[()][6-015]|
+|[%RegExpPrototype%][6-015]|RegExp.prototype|[()][6-015]|
+|[%Set%][6-015]|Set|[()][6-015]|
+|[%SetIteratorPrototype%][6-015]||[()][6-015]|
+|[%SetPrototype%][6-015]|Set.prototype|[()][6-015]|
+|[%SharedArrayBuffer%][6-015]|SharedArrayBuffer|[()][6-015]|
+|[%SharedArrayBufferPrototype%][6-015]|SharedArrayBuffer.prototype|[()][6-015]|
+|[%StringPrototype%][6-015]|String|[()][6-015]|
+|[%Symbol%][6-015]||[()][6-015]|
+|[%SymbolPrototype%][6-015]|String.prototype|[()][6-015]|
+|[%SyntaxError%][6-015]|Symbol|[()][6-015]|
+|[%SyntaxErrorPrototype%][6-015]|Symbo.prototype|[()][6-015]|
+|[%ThrowTypeError%][6-015]|SyntaxError|[()][6-015]|
+|[%TypedArray%][6-015]|SyntaxError.prototype|[()][6-015]|
+|[%TypedArrayPrototype%][6-015]||[()][6-015]|
+|[%TypeError%][6-015]|TypeError|[()][6-015]|
+|[%TypeErrorPrototype%][6-015]|TypeError.prototype|[()][6-015]|
+|[%Uint8Array%][6-015]|Uint8Array|[()][6-015]|
+|[%Uint8ArrayPrototype%][6-015]|Uint8Array.prototype|[()][6-015]|
+|[%Uint8ClampedArray%][6-015]|Uint8ClampedArray|[()][6-015]|
+|[%Uint8ClampedArrayPrototype%][6-015]|Uint8ClampedArray.prototype|[()][6-015]|
+|[%Uint16Array%][6-015]|Uint16Array|[()][6-015]|
+|[%Uint16ArrayPrototype%][6-015]|Uint16Array.prototype|[()][6-015]|
+|[%Uint32Array%][6-015]|Uint32Array|[()][6-015]|
+|[%Uint32ArrayPrototype%][6-015]|Uint32Array.prototype|[()][6-015]|
+|[%URIError%][6-015]|URIError|[()][6-015]|
+|[%URIErrorPrototype%][6-015]|URIError.prototype|[()][6-015]|
+|[%WeakMap%][6-015]|WeakMap|[()][6-015]|
+|[%WeakMapPrototype%][6-015]|WeakMap.prototype|[()][6-015]|
+|[%WeakSet%][6-015]|WeakSet|[()][6-015]|
+|[%WeakSetPrototype%][6-015]|WeakSet.prototype|[()][6-015]|
+
+
+|[%%][]||[()][]|
+|[%%][]||[()][]|
+|[%%][]||[()][]|
+|[%%][]||[()][]|
+|[%%][]||[()][]|
+|[%%][]||[()][]|
+|[%%][]||[()][]|
 
 [6-001]: www.aca-va-una-explicacion-sobre-lo-que-es-locale.com
 [6-006]: www.aca-una-referencia-cruzada-a-la-tabla-5.com
 [6-007]: www.aca-una-referencia-cruzada-a-la-tabla-6.com
+[6-008]: www.referencia-cruzada-a-7-2-9.com
+[6-009]: www.referencia-cruzada-a-6-2-5.com
+[6-010]: www.referencia-cruzada-a-6-2-5-6.com
+[6-011]: www.referencia-cruzada-a-6-2-1.com
+[6-012]: www.referencia-cruzada-a-8-2.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-014]: www.referencia-cruzada-a-tabla-7.com
 
+[6-015]: www.referencia-cruzada-a-8-3.com
+[6-016]: www.referencia-cruzada-a-8-3.com
+[6-017]: www.referencia-cruzada-a-8-3.com
+[6-018]: www.referencia-cruzada-a-8-3.com
+[6-019]: www.referencia-cruzada-a-8-3.com
+[6-020]: www.referencia-cruzada-a-8-3.com
+[6-021]: www.referencia-cruzada-a-8-3.com
+[6-022]: www.referencia-cruzada-a-8-3.com
+[6-023]: www.referencia-cruzada-a-8-3.com
+[6-024]: www.referencia-cruzada-a-8-3.com
+[6-025]: www.referencia-cruzada-a-8-3.com
+[6-026]: www.referencia-cruzada-a-8-3.com
+[6-027]: www.referencia-cruzada-a-8-3.com
+[6-028]: www.referencia-cruzada-a-8-3.com
+[6-029]: www.referencia-cruzada-a-8-3.com
+[6-030]: www.referencia-cruzada-a-8-3.com
 
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
+[6-013]: www.referencia-cruzada-a-8-3.com
