@@ -315,63 +315,61 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 |[%Atomics%][6-023]|Atomics|El objeto **Atomics** [(24.4)][6-023]|
 |[%Boolean%][6-024]|Boolean|El constructor **Boolean** [(19.3.1)][6-024]|
 |[%BooleanPrototype%][6-025]|Boolean.Prototype|El valor inicial de la propiedad de datos **prototype** de %Boolean% [(19.3.3)][6-025]|
-----
 |[%DataView%][6-026]|DataView|El constructor Dataview [(24.3.2)][6-026]|
 |[%DataViewPrototype%][6-027]|DataView.prototype|El valor inicial de la propiedad de datos **prototype** de [%DataView%][6-026]|
 |[%Date%][6-028]|Date|El constructor **Date**[()][6-028]|
 |[%DatePrototype%][6-029]|Date.prototype|El valor inicial de la propiedad de datos **prototype** de [%Date%][6-028]|
-|[%decodeURI%][6-015]|decodeURI|[()][6-015]|
-|[%decodeURIComponent%][6-015]|decodeURIComponent|[()][6-015]|
-|[%encodeURI%][6-015]|encodeURI|[()][6-015]|
-|[%encodeURIComponent%][6-015]|encodeURIComponent|[()][6-015]|
-|[%Error%][6-015]|Error|[()][6-015]|
-|[%ErrorPrototype%][6-015]|Error.prototype|[()][6-015]|
-|[%eval%][6-015]|eval|[()][6-015]|
-|[%EvalError%][6-015]|EvalError|[()][6-015]|
-----
-|[%EvalErrorPrototype%][6-015]|EvalError.prototype|[()][6-015]|
-|[%Float32Array%][6-015]|Float32Array|[()][6-015]|
-|[%Float32ArrayPrototype%][6-015]|Float32Array.prototype|[()][6-015]|
-|[%Float64Array%][6-015]|Float64Array|[()][6-015]|
-|[%Float64ArrayPrototype%][6-015]|Float64.prototype|[()][6-015]|
-|[%Function%][6-015]|Function|[()][6-015]|
-|[%FunctionPrototype%][6-015]|Function.prototype|[()][6-015]|
-|[%Generator%][6-015]||[()][6-015]|
-|[%GeneratorFunction%][6-015]||[()][6-015]|
-|[%GeneratorPrototype%][6-015]||[()][6-015]|
-|[%Int8Array%][6-015]|Int8Array|[()][6-015]|
-|[%Int8ArrayPrototype%][6-015]|Int8Array.prototype|[()][6-015]|
-|[%Int16Array%][6-015]|int16Array|[()][6-015]|
-|[%Int16ArrayPrototype%][6-015]|Int16Array.prototype|[()][6-015]|
-|[%Int32Array%][6-015]|Int32Array|[()][6-015]|
-|[%Int32ArrayPrototype%][6-015]|Int32Array.prototype|[()][6-015]|
-|[%isFinite%][6-015]|isFinite|[()][6-015]|
-|[%isNaN%][6-015]|isNaN|[()][6-015]|
-|[%IteratorPrototype%][6-015]||[()][6-015]|
-|[%JSON%][6-015]|JSON|[()][6-015]|
-|[%Map%][6-015]|Map|[()][6-015]|
-|[%MapIteratorPrototype%][6-015]||[()][6-015]|
-|[%MapPrototype%][6-015]|Map.prototype|[()][6-015]|
-|[%Math%][6-015]|Math|[()][6-015]|
-|[%Number%][6-015]|Number|[()][6-015]|6-015
-|[%NumberPrototype%][6-015]|Number.prototype|[()][6-015]|
-|[%Object%][6-015]|Object|[()][6-015]|
-|[%ObjectPrototype%][6-015]|Object.prototype|[()][6-015]|
-|[%ObjProto_toString%][6-015]|Object.prototype.toString|[()][6-015]|
-|[%ObjProto_valueOf%][6-015]|Object.prototype.valueOf|[()][6-015]| 
-|[%parseFloat%][6-015]|parseFloat|[()][6-015]|
-|[%parseInt%][6-015]|parseInt|[()][6-015]|
-|[%Promise%][6-015]|Promise|[()][6-015]|
-|[%PromisePrototype%][6-015]|Promise.prototype|[()][6-015]|
-|[%Proxy%][6-015]|Proxy|[()][6-015]|
-|[%RangeError%][6-015]|RangeError|[()][6-015]|
-|[%RangeErrorPrototype%][6-015]|RangeError.prototype|[()][6-015]|
-|[%ReferenceError%][6-015]|ReferenceError|[()][6-015]|
-|[%ReferenceErrorPrototype%][6-015]|ReferenceError.prototype|[()][6-015]|
-|[%Reflect%][6-015]|Reflect|[()][6-015]|
-|[%RegExp%][6-015]|RegExp|[()][6-015]|
-|[%RegExpPrototype%][6-015]|RegExp.prototype|[()][6-015]|
-|[%Set%][6-015]|Set|[()][6-015]|
+|[%decodeURI%][6-030]|decodeURI|La función **decodeURI** [(18.2.6.2)][6-030]|
+|[%decodeURIComponent%][6-031]|decodeURIComponent|La función **decodeURIComponent** [(18.2.6.3)][6-015]|
+|[%encodeURI%][6-032]|encodeURI|La función **encodeURI**[(18.2.6.4)][6-032]|
+|[%encodeURIComponent%][6-033]|encodeURIComponent|La función **encodeURIComponent** [(18.2.6.5)][6-033]|
+|[%Error%][6-034]|Error|El constructor **Error** [(19.5.1)][6-034]|
+|[%ErrorPrototype%][6-035]|Error.prototype|El valor inicial de la propiedad de datos **prototype** de [%Error%][6-034]|
+|[%eval%][6-036]|eval|La función **eval** [(18.2.1)][6-036]|
+|%EvalError%|EvalError|El constructor **EvalError**[(19.5.5.1)][6-037]|
+|%EvalErrorPrototype%|EvalError.prototype|El valor inicial de la propiedad **prototype** de %EvalError%|
+|%Float32Array%|Float32Array|El constructor **Floar32Array** [(22.2)][6-038]|
+|%Float32ArrayPrototype%|Float32Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Float32Array%|
+|%Float64Array%|Float64Array|El constructor **Float64Array** [(22.2)][6-038]|
+|%Float64ArrayPrototype%|Float64.prototype|El valor inicial de la propiedad de datos **prototype** de %Float64Array%|
+|[%Function%][6-039]|Function|El constructor **Function**[(19.2.1)][6-039]|
+|[%FunctionPrototype%][6-040]|Function.prototype|El valor inicial de la propiedad de datos **prototype** de [%Function%][6-039]|
+|[%Generator%][6-041]||El valor inicial de la propiedad de datos **prototype** de [%GeneratorFunction%][6-042]|
+|[%GeneratorFunction%][6-042]||El constructor de objetos generator [(25.2.1)][6-042]|
+|[%GeneratorPrototype%][6-043]||El valor inicial de la propiedad **prototype** de [%Generator%][6-041]|
+|%Int8Array%|Int8Array|El constructor **Int8Array** [(22.2)][6-044]|
+|%Int8ArrayPrototype%|Int8Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Int8Array%|
+|%Int16Array%|int16Array|El constructor **Int16Array** [(22.2)][6-044]|
+|%Int16ArrayPrototype%|Int16Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Int16Array%|
+|%Int32Array%|Int32Array|El constructor **Int32Array** [(22.2)][6-044]|
+|%Int32ArrayPrototype%|Int32Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Int32Array%|
+|[%isFinite%][6-045]|isFinite|La funciòn **isFinite** [(18.2.2)][6-045]|
+|[%isNaN%][6-046]|isNaN|La función **isNaN** [(18.2.3)][6-046]|
+|[%IteratorPrototype%][6-047]||Un objeto que heredan indirectamente todos los objetos iteradores incorporados|
+|[%JSON%][6-048]|JSON|El objeto **JSON** [(24.5)][6-048]|
+|[%Map%][6-049]|Map|El constructor **Map** [(23.1.1)][6-049]|
+|[%MapIteratorPrototype%][6-050]||El prototipo de objetos de iterador de Map [(23.1.5)][6-051]|
+|[%MapPrototype%][6-052]|Map.prototype|El valor inicial de la propiedad de datos **prototype** de [%Map%][6-053]|
+|[%Math%][6-054]|Math|El objeto **Math** [(20.2)][6-054]|
+|[%Number%][6-055]|Number|El constructor **Number** [(20.1.1)][6-055]|
+|[%NumberPrototype%][6-056]|Number.prototype|El valor inicial de la propiedad de datos **prototype** de [%Number%][6-055]|
+|[%Object%][6-057]|Object|El constructor **Object** [(19.1.1)][6-057]|
+|[%ObjectPrototype%][6-058]|Object.prototype|El valor inicial de la propiedad de datos **prototype** de [%Object%][6-057] [(19.1.3)][6-058]|
+|[%ObjProto_toString%][6-059]|Object.prototype.toString|El valor inicial de la propiedad de datos **toString** de [%ObjectPrototype%][6-058] [(19.1.3.6)][6-059]|
+|[%ObjProto_valueOf%][6-060]|Object.prototype.valueOf|El valor inicial de la propiedad de datos **valueOf** de [%ObjectPrototype%][6-058] [(19.1.6.7)][6-060]| 
+|[%parseFloat%][6-061]|parseFloat|La función **parseFloat** [(18.2.4)][6-061]|
+|[%parseInt%][6-062]|parseInt|La función **parseInt** [(18.2.5)][6-062]|
+|[%Promise%][6-063]|Promise|El constructor **Promise** [(25.4.3)][6-063]|
+|[%PromisePrototype%][6-064]|Promise.prototype|El valor inicial de la propiedad de datos **prototype** de [%Promise%][6-063]|
+|[%Proxy%][6-065]|Proxy|El constructor **Proxy** [(26.2.1)][6-065]|
+|%RangeError%|RangeError|El constructor **RangeError** [(19.5.5.2)][6-066]|
+|%RangeErrorPrototype%|RangeError.prototype|El valor inicial de la propiedad **prototype** de %RangeError%|
+|%ReferenceError%|ReferenceError|El constructor **ReferenceError** [(19.5.5.3)][6-067]|
+|%ReferenceErrorPrototype%|ReferenceError.prototype|El valor inicial de la propiedad **prototype** de %ReferenceError%|
+|[%Reflect%][6-068]|Reflect|El objeto **Reflect** [(26.1)][6-068]|
+|[%RegExp%][6-069]|RegExp|El constructor **RegExp**[(21.2.3)][6-069]|
+|[%RegExpPrototype%][6-070]|RegExp.prototype|El valor inicial de la propiedad de datos **prototype** de [%RegExp%][6-069]|
+|[%Set%][6-071]|Set|El constructor **Set** [(23.2.1)][6-071]|
 |[%SetIteratorPrototype%][6-015]||[()][6-015]|
 |[%SetPrototype%][6-015]|Set.prototype|[()][6-015]|
 |[%SharedArrayBuffer%][6-015]|SharedArrayBuffer|[()][6-015]|
@@ -431,54 +429,53 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 [6-023]: www.referencia-cruzada-a-24-4.com
 [6-024]: www.referencia-cruzada-a-19-3-1.com
 [6-025]: www.referencia-cruzada-a-19-3-3.com
-
 [6-026]: www.referencia-cruzada-a-24-3-2.com
 [6-027]: www.referencia-cruzada-a-24-3-4.com
 [6-028]: www.referencia-cruzada-a-20-3-2.com
 [6-029]: www.referencia-cruzada-a-20-3-4.com
-[6-030]: www.referencia-cruzada-a-8-3.com
-[6-031]: www.referencia-cruzada-a-8-3.com
-[6-032]: www.referencia-cruzada-a-8-3.com
-[6-033]: www.referencia-cruzada-a-8-3.com
-[6-034]: www.referencia-cruzada-a-8-3.com
-[6-035]: www.referencia-cruzada-a-8-3.com
-[6-036]: www.referencia-cruzada-a-8-3.com
-[6-037]: www.referencia-cruzada-a-8-3.com
-
-[6-038]: www.referencia-cruzada-a-8-3.com
-[6-039]: www.referencia-cruzada-a-8-3.com
-[6-040]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
+[6-030]: www.referencia-cruzada-a-18-2-6-2.com
+[6-031]: www.referencia-cruzada-a-18-2-6-3.com
+[6-032]: www.referencia-cruzada-a-18-2-6-4.com
+[6-033]: www.referencia-cruzada-a-18-2-6-5.com
+[6-034]: www.referencia-cruzada-a-19-5-1.com
+[6-035]: www.referencia-cruzada-a-19-5-3.com
+[6-036]: www.referencia-cruzada-a-18-2-1.com
+[6-037]: www.referencia-cruzada-a-19-5-5-1.com
+[6-038]: www.referencia-cruzada-a-22-2.com
+[6-039]: www.referencia-cruzada-a-19-2-1.com
+[6-040]: www.referencia-cruzada-a-19-2-3.com
+[6-041]: www.referencia-cruzada-a-25-2-3.com
+[6-042]: www.referencia-cruzada-a-25-2-1.com
+[6-043]: www.referencia-cruzada-a-25-3-1.com
+[6-044]: www.referencia-cruzada-a-22-2.com
+[6-045]: www.referencia-cruzada-a-18-2-2.com
+[6-046]: www.referencia-cruzada-a-18-2-3.com
+[6-047]: www.referencia-cruzada-a-25-1-2.com
+[6-048]: www.referencia-cruzada-a-24-5.com
+[6-049]: www.referencia-cruzada-a-23-1-1.com
+[6-050]: www.referencia-cruzada-a-23-1-5-2.com
+[6-051]: www.referencia-cruzada-a-23-1-5.com
+[6-052]: www.referencia-cruzada-a-23-1-3.com
+[6-053]: www.referencia-cruzada-a-23-1-1.com
+[6-054]: www.referencia-cruzada-a-20-2.com
+[6-055]: www.referencia-cruzada-a-20-1-1.com
+[6-056]: www.referencia-cruzada-a-20-1-3.com
+[6-057]: www.referencia-cruzada-a-19-1-1.com
+[6-058]: www.referencia-cruzada-a-19-1-3.com
+[6-059]: www.referencia-cruzada-a-19-1-3-6.com
+[6-060]: www.referencia-cruzada-a-19-1-3-7.com
+[6-061]: www.referencia-cruzada-a-18-2-4.com
+[6-062]: www.referencia-cruzada-a-18-2-5.com
+[6-063]: www.referencia-cruzada-a-25-4-3.com
+[6-064]: www.referencia-cruzada-a-25-4-5.com
+[6-065]: www.referencia-cruzada-a-26-2-1.com
+[6-066]: www.referencia-cruzada-a-19-5-5-2.com
+[6-067]: www.referencia-cruzada-a-19-5-5-3.com
+[6-068]: www.referencia-cruzada-a-26-1.com
+[6-069]: www.referencia-cruzada-a-21-2-3.com
+[6-070]: www.referencia-cruzada-a-21-2-5.com
+[6-071]: www.referencia-cruzada-a-23-2-1-linea-373.com
+---
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
