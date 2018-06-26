@@ -317,7 +317,7 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 |[%BooleanPrototype%][6-025]|Boolean.Prototype|El valor inicial de la propiedad de datos **prototype** de %Boolean% [(19.3.3)][6-025]|
 |[%DataView%][6-026]|DataView|El constructor Dataview [(24.3.2)][6-026]|
 |[%DataViewPrototype%][6-027]|DataView.prototype|El valor inicial de la propiedad de datos **prototype** de [%DataView%][6-026]|
-|[%Date%][6-028]|Date|El constructor **Date**[()][6-028]|
+|[%Date%][6-028]|Date|El constructor **Date** [(20.3.2)][6-028]|
 |[%DatePrototype%][6-029]|Date.prototype|El valor inicial de la propiedad de datos **prototype** de [%Date%][6-028]|
 |[%decodeURI%][6-030]|decodeURI|La función **decodeURI** [(18.2.6.2)][6-030]|
 |[%decodeURIComponent%][6-031]|decodeURIComponent|La función **decodeURIComponent** [(18.2.6.3)][6-015]|
