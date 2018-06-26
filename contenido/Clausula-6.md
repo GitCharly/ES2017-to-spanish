@@ -308,17 +308,18 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 |[%ArrayBuffer%][6-016]|ArrayBuffer|El constructor de **ArrayBuffer** [(24.1.2)][6-016]|
 |[%ArrayBufferPrototype%][6-017]|ArrayBuffer.prototype|El valor inicial de la propiedad de datos **prototype** de [%ArrayBuffer%][6-017]|
 |[%ArrayIteratorPrototype%][6-018]||El prototipo del objeto iterador de Array [(22.1.5)][6-018]|
-|[%ArrayPrototype%][6-015]|Array.prototype|[()][6-015]|
-|[%ArrayProto_values%][6-015]|Array.prototype.values|[()][6-015]|
-|[%AsyncFunction%][6-015]||[()][6-015]|
-|[%AsyncFunctionPrototype%][6-015]||[()][6-015]|
-|[%Atomics%][6-015]|Atomics|[()][6-015]|
-|[%Boolean%][6-015]|Boolean|[()][6-015]|
-|[%BooleanPrototype%][6-015]|Boolean.Prototype|[()][6-015]|
-|[%DataView%][6-015]|DataView|[()][6-015]|
-|[%DataViewPrototype%][6-015]|DataView.prototype|[()][6-015]|
-|[%Date%][6-015]|Date|[()][6-015]|
-|[%DatePrototype%][6-015]|Date.prototype|[()][6-015]|
+|[%ArrayPrototype%][6-019]|Array.prototype|El valor inicial del objeto de datos **prototype** de [%Array%][6-019]|
+|[%ArrayProto_values%][6-020]|Array.prototype.values|El valor inicial de la propiedad de datos **values** de %ArrayPrototype% [(22.1.3.30)][6-020]|
+|[%AsyncFunction%][6-021]||El constructor de objetos de función async [(25.5.1)][6-021]|
+|[%AsyncFunctionPrototype%][6-022]||El valor inicial de la propiedad de datos **prototype** de [%AsyncFunction%][6-021]|
+|[%Atomics%][6-023]|Atomics|El objeto **Atomics** [(24.4)][6-023]|
+|[%Boolean%][6-024]|Boolean|El constructor **Boolean** [(19.3.1)][6-024]|
+|[%BooleanPrototype%][6-025]|Boolean.Prototype|El valor inicial de la propiedad de datos **prototype** de %Boolean% [(19.3.3)][6-025]|
+----
+|[%DataView%][6-026]|DataView|El constructor Dataview [(24.3.2)][6-026]|
+|[%DataViewPrototype%][6-027]|DataView.prototype|El valor inicial de la propiedad de datos **prototype** de [%DataView%][6-026]|
+|[%Date%][6-028]|Date|El constructor **Date**[()][6-028]|
+|[%DatePrototype%][6-029]|Date.prototype|El valor inicial de la propiedad de datos **prototype** de [%Date%][6-028]|
 |[%decodeURI%][6-015]|decodeURI|[()][6-015]|
 |[%decodeURIComponent%][6-015]|decodeURIComponent|[()][6-015]|
 |[%encodeURI%][6-015]|encodeURI|[()][6-015]|
@@ -327,6 +328,7 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 |[%ErrorPrototype%][6-015]|Error.prototype|[()][6-015]|
 |[%eval%][6-015]|eval|[()][6-015]|
 |[%EvalError%][6-015]|EvalError|[()][6-015]|
+----
 |[%EvalErrorPrototype%][6-015]|EvalError.prototype|[()][6-015]|
 |[%Float32Array%][6-015]|Float32Array|[()][6-015]|
 |[%Float32ArrayPrototype%][6-015]|Float32Array.prototype|[()][6-015]|
@@ -418,34 +420,34 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 [6-012]: www.referencia-cruzada-a-8-2.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-014]: www.referencia-cruzada-a-tabla-7.com
-
 [6-015]: www.referencia-cruzada-a-22-1-1.com
 [6-016]: www.referencia-cruzada-a-24-1-2.com
 [6-017]: www.referencia-cruzada-a-24-1-2.com
 [6-018]: www.referencia-cruzada-a-22-1-5-3.com
-[6-019]: www.referencia-cruzada-a-8-3.com
-[6-020]: www.referencia-cruzada-a-8-3.com
-[6-021]: www.referencia-cruzada-a-8-3.com
-[6-022]: www.referencia-cruzada-a-8-3.com
-[6-023]: www.referencia-cruzada-a-8-3.com
-[6-024]: www.referencia-cruzada-a-8-3.com
-[6-025]: www.referencia-cruzada-a-8-3.com
-[6-026]: www.referencia-cruzada-a-8-3.com
-[6-027]: www.referencia-cruzada-a-8-3.com
-[6-028]: www.referencia-cruzada-a-8-3.com
-[6-029]: www.referencia-cruzada-a-8-3.com
-[6-030]: www.referencia-cruzada-a-8-3.com
+[6-019]: www.referencia-cruzada-a-22-1-3.com
+[6-020]: www.referencia-cruzada-a-22-1-3-30.com
+[6-021]: www.referencia-cruzada-a-25-5-1.com
+[6-022]: www.referencia-cruzada-a-25-5-3.com
+[6-023]: www.referencia-cruzada-a-24-4.com
+[6-024]: www.referencia-cruzada-a-19-3-1.com
+[6-025]: www.referencia-cruzada-a-19-3-3.com
 
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
+[6-026]: www.referencia-cruzada-a-24-3-2.com
+[6-027]: www.referencia-cruzada-a-24-3-4.com
+[6-028]: www.referencia-cruzada-a-20-3-2.com
+[6-029]: www.referencia-cruzada-a-20-3-4.com
+[6-030]: www.referencia-cruzada-a-8-3.com
+[6-031]: www.referencia-cruzada-a-8-3.com
+[6-032]: www.referencia-cruzada-a-8-3.com
+[6-033]: www.referencia-cruzada-a-8-3.com
+[6-034]: www.referencia-cruzada-a-8-3.com
+[6-035]: www.referencia-cruzada-a-8-3.com
+[6-036]: www.referencia-cruzada-a-8-3.com
+[6-037]: www.referencia-cruzada-a-8-3.com
+
+[6-038]: www.referencia-cruzada-a-8-3.com
+[6-039]: www.referencia-cruzada-a-8-3.com
+[6-040]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
