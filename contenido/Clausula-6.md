@@ -370,43 +370,42 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 |[%RegExp%][6-069]|RegExp|El constructor **RegExp**[(21.2.3)][6-069]|
 |[%RegExpPrototype%][6-070]|RegExp.prototype|El valor inicial de la propiedad de datos **prototype** de [%RegExp%][6-069]|
 |[%Set%][6-071]|Set|El constructor **Set** [(23.2.1)][6-071]|
-|[%SetIteratorPrototype%][6-015]||[()][6-015]|
-|[%SetPrototype%][6-015]|Set.prototype|[()][6-015]|
-|[%SharedArrayBuffer%][6-015]|SharedArrayBuffer|[()][6-015]|
-|[%SharedArrayBufferPrototype%][6-015]|SharedArrayBuffer.prototype|[()][6-015]|
-|[%StringPrototype%][6-015]|String|[()][6-015]|
-|[%Symbol%][6-015]||[()][6-015]|
-|[%SymbolPrototype%][6-015]|String.prototype|[()][6-015]|
-|[%SyntaxError%][6-015]|Symbol|[()][6-015]|
-|[%SyntaxErrorPrototype%][6-015]|Symbo.prototype|[()][6-015]|
-|[%ThrowTypeError%][6-015]|SyntaxError|[()][6-015]|
-|[%TypedArray%][6-015]|SyntaxError.prototype|[()][6-015]|
-|[%TypedArrayPrototype%][6-015]||[()][6-015]|
-|[%TypeError%][6-015]|TypeError|[()][6-015]|
-|[%TypeErrorPrototype%][6-015]|TypeError.prototype|[()][6-015]|
-|[%Uint8Array%][6-015]|Uint8Array|[()][6-015]|
-|[%Uint8ArrayPrototype%][6-015]|Uint8Array.prototype|[()][6-015]|
-|[%Uint8ClampedArray%][6-015]|Uint8ClampedArray|[()][6-015]|
-|[%Uint8ClampedArrayPrototype%][6-015]|Uint8ClampedArray.prototype|[()][6-015]|
-|[%Uint16Array%][6-015]|Uint16Array|[()][6-015]|
-|[%Uint16ArrayPrototype%][6-015]|Uint16Array.prototype|[()][6-015]|
-|[%Uint32Array%][6-015]|Uint32Array|[()][6-015]|
-|[%Uint32ArrayPrototype%][6-015]|Uint32Array.prototype|[()][6-015]|
-|[%URIError%][6-015]|URIError|[()][6-015]|
-|[%URIErrorPrototype%][6-015]|URIError.prototype|[()][6-015]|
-|[%WeakMap%][6-015]|WeakMap|[()][6-015]|
-|[%WeakMapPrototype%][6-015]|WeakMap.prototype|[()][6-015]|
-|[%WeakSet%][6-015]|WeakSet|[()][6-015]|
-|[%WeakSetPrototype%][6-015]|WeakSet.prototype|[()][6-015]|
+|[%SetIteratorPrototype%][6-072]|El prototipo de los objetos iteradores de Set |[(23.2.5)][6-073]|
+|[%SetPrototype%][6-074]|Set.prototype|El valor inicial de la propiedad de datos **prototype** de [%Set%][6-075]|
+|[%SharedArrayBuffer%][6-076]|SharedArrayBuffer|El constructor %SharedArrayBuffer%** [(24.2.2)][6-076]|
+|[%SharedArrayBufferPrototype%][6-077]|SharedArrayBuffer.prototype|El valor inicial de la propiedad de datos **prototype** de [%SharedArrayBuffer%][6-076]|
+|[%String%][6-078]|String|El constructor String [(21.1.1)][6-078]|
+|[%StringIteratorPrototype%][6-079]||El prototipo de los objetos iteradores de String [(21.1.5)][6-080]|
+|[%StringPrototype%][6-081]|String.prototype|El valor inicial de la propiedad de datos **prototype** de [%String%][6-078]|
+|[%Symbol%][6-082]|Symbol|El constructor **Symbol** [(19.4.1)][6-082]|
+|[%SymbolPrototype%][6-083]|Symbol.prototype|El valor inicial de la propiedad de datos **prototype** de [%Symbol%][6-082] [(19.4.3)][6-083]|
+|%SyntaxError%|SyntaxError|El constructor **Syntax Error** [(19.5.5.4)][6-084]|
+|%SyntaxErrorPrototype%|SyntaxError.prototype|El valor inicial de la propiedad **prototype** de %SyntaxError%|
+|[%ThrowTypeError%][6-085]||Un objeto función que incondicionalmente arroja una nueva instancia de %TypeError%|
+|[%TypedArray%][6-086]||La super clase de todos los constructores de 'typed Array' [(22.2.1)][6-086]|
+|[%TypedArrayPrototype%][6-087]||El valor inicial de la propiedad **prototype** de [%TypedArray%][6-086]|
+|%TypeError%|TypeError|Ek constructor **TypeError** [(19.5.5.5)][6-088]|
+|%TypeErrorPrototype%|TypeError.prototype|El valor inicial de la propiedad **prototype** de %TypeError%|
+|%Uint8Array%|Uint8Array|En constructor **Uint8Array** [(22.2)][6-089]|
+|%Uint8ArrayPrototype%|Uint8Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Uint8Array|
+|%Uint8ClampedArray%|Uint8ClampedArray|El constructor **Uint8ClampedArray** [(22.2)][6-089]|
+|%Uint8ClampedArrayPrototype%|Uint8ClampedArray.prototype|El valor inicial de la propiedad de datos **prototype** de %Uint8ClampedArray%|
+|%Uint16Array%|Uint16Array|El constructor **Uint16Array** [(22.2)][6-089]|
+|%Uint16ArrayPrototype%|Uint16Array.prototype|El valor inicial de la propiedad de datos **prototype** de %Uint16Array%|
+|%Uint32Array%|Uint32Array|[(22.2)][6-089]|
+|%Uint32ArrayPrototype%|Uint32Array.prototype|El valor inicial de la propiedad **prototype** de %Uint32Array%|
+|%URIError%|URIError|El constructor **URIError** [(19.5.5.6)][6-090]|
+|%URIErrorPrototype%|URIError.prototype|El valor inicial de la propiedad **prototype** de %URIError%|
+|[%WeakMap%][6-091]|WeakMap|El constructor **WeakMap** [(23.3.1)][6-091]|
+|[%WeakMapPrototype%][6-092]|WeakMap.prototype|El valor inicial de la propiedad de datos **prototype** de  [%WeakMap%][6-091]|
+|[%WeakSet%][6-093]|WeakSet|El constructor **WeakSet** [(23.4.1)][6-093]|
+|[%WeakSetPrototype%][6-094]|WeakSet.prototype|El valor inicial de la propiedad de datos **prototype**  de [%WeakSet%][6-093]|
 
+## 6.2 Los tipos de la especificación ECMAScript
+<span class="original-title">ECMAScript Specification Types</span>
 
-|[%%][]||[()][]|
-|[%%][]||[()][]|
-|[%%][]||[()][]|
-|[%%][]||[()][]|
-|[%%][]||[()][]|
-|[%%][]||[()][]|
-|[%%][]||[()][]|
+Un tipo de la especificación corresponde a meta-valores que son usados dentro de los algoritmos para describir la semántica de las construcciones y los tipos del lenguaje ECMAScript. Los tipos de la especificación incluyen: [Reference][6-095], [List][6-096], [Completion][6-097], [Property Descriptor][6-098], [Lexical Environment][6-099], [Environment Record][6-100], y [DataBlock][6-101]. Los tipos de la especificación son artefactos de la especificación que no necesariamente corresponden a ninguna entidad específica dentro de una implementación ECMAScript. Los valores de los tipos de la especificación pueden ser usados para describir resultados intermedios de la evaluación de una expresión ECMAScript pero tales valores no pueden ser guardados como propiedades de objetos o valores de variables del lenguaje ECMAScript. 
+
 
 [6-001]: www.aca-va-una-explicacion-sobre-lo-que-es-locale.com
 [6-006]: www.aca-una-referencia-cruzada-a-la-tabla-5.com
@@ -474,37 +473,36 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 [6-068]: www.referencia-cruzada-a-26-1.com
 [6-069]: www.referencia-cruzada-a-21-2-3.com
 [6-070]: www.referencia-cruzada-a-21-2-5.com
-[6-071]: www.referencia-cruzada-a-23-2-1-linea-373.com
----
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
+[6-071]: www.referencia-cruzada-a-23-2-1.com
+[6-072]: www.referencia-cruzada-a-23-2-5-2.com
+[6-073]: www.referencia-cruzada-a-23-2-5.com
+[6-074]: www.referencia-cruzada-a-23-2-3.com
+[6-075]: www.referencia-cruzada-a-23-2-1.com
+[6-076]: www.referencia-cruzada-a-24-2-2.com
+[6-077]: www.referencia-cruzada-a-24-2-4.com
+[6-078]: www.referencia-cruzada-a-21-1-1.com
+[6-079]: www.referencia-cruzada-a-21-1-5-2.com
+[6-080]: www.referencia-cruzada-a-21-1-5.com
+[6-081]: www.referencia-cruzada-a-21-1-3.com
+[6-082]: www.referencia-cruzada-a-19-4-1.com
+[6-083]: www.referencia-cruzada-a-19-4-3.com
+[6-084]: www.referencia-cruzada-a-19-5-5-4.com
+[6-085]: www.referencia-cruzada-a-9-2-7-1.com
+[6-086]: www.referencia-cruzada-a-22-2-1.com
+[6-087]: www.referencia-cruzada-a-22-2-3.com
+[6-088]: www.referencia-cruzada-a-19-5-5-5.com
+[6-089]: www.referencia-cruzada-a-22-2.com
+[6-090]: www.referencia-cruzada-a-19-5-5-6.com
+[6-091]: www.referencia-cruzada-a-23-3-1.com
+[6-092]: www.referencia-cruzada-a-23-3-3.com
+[6-093]: www.referencia-cruzada-a-23-4-1.com
+[6-094]: www.referencia-cruzada-a-23-4-3.com
+[6-095]: www.referencia-cruzada-a-8-3.com
+[6-096]: www.referencia-cruzada-a-8-3.com
+[6-097]: www.referencia-cruzada-a-8-3.com
+[6-098]: www.referencia-cruzada-a-8-3.com
+[6-099]: www.referencia-cruzada-a-8-3.com
+[6-100]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
 [6-013]: www.referencia-cruzada-a-8-3.com
