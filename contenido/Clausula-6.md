@@ -406,6 +406,51 @@ Dentro de esta especificación, una referencia del tipo _%nombre%_ significa un 
 
 Un tipo de la especificación corresponde a meta-valores que son usados dentro de los algoritmos para describir la semántica de las construcciones y los tipos del lenguaje ECMAScript. Los tipos de la especificación incluyen: [Reference][6-095], [List][6-096], [Completion][6-097], [Property Descriptor][6-098], [Lexical Environment][6-099], [Environment Record][6-100], y [DataBlock][6-101]. Los tipos de la especificación son artefactos de la especificación que no necesariamente corresponden a ninguna entidad específica dentro de una implementación ECMAScript. Los valores de los tipos de la especificación pueden ser usados para describir resultados intermedios de la evaluación de una expresión ECMAScript pero tales valores no pueden ser guardados como propiedades de objetos o valores de variables del lenguaje ECMAScript. 
 
+### 6.2.1 Los tipos de la especificación 'List' y 'Record'
+<span class ="original-title">The List and Record Specificaction Types</span>
+
+El tipo *List* es usado para explicar las evaluaciones de listas de argumentos (ver [12.3.6][6-102]) en expresiones **new**, en llamadas de funciones, y en otros algoritmos donde es necesario un simple listado ordenado de valores. Los valores de un tipo *List* son simples secuencias de elementos listados de manera ordenada conteniendo los valores individuales. Estas secuencias dpeden ser de cualquier largo. Los elementos de un listado pueden ser accedidos aleatoriamente usando índices de origen-0. Para conveniencia de la notación, puede ser usada una sintaxis similar a la de arreglos para acceder a los elementos de *List*. Por ejemplo, *arguments[2]* es un abreviación para indicar "el 3er elemento de los *arguments* de List.
+
+Para conveniencia de la notación dentro de esta especificación, una sintaxis literal puede ser usada para expresar un nuevo valor en un listado *List*. Por ejemplo, << 1, 2>> define un nuevo valor *List* que contiene dos elementos cada uno de los cuales es inicializado a un valor específico. Un nuevo *List* vacío puede ser expresado como << >>.
+
+El tipo *Record* es usado para describir el agregado de datos dentro de los algoritmos de esta especificación. Un valor del tipo *Record* consiste en uno o màs campos con nombre. El valor de cada campo es bien un valor ECMAScript o un valor abstracto representado por un nombre asociado al tipo *Record*. Los nombres de los campos estàn siempre encerrados en dobles corchetes, por ejemplo [[Valor]].
+
+Para la conveniencia de la notación dentro de esta especificación, una sintaxis similar a de objetos-literales puede ser para expresar un valor *Record*. Por ejemplo, {[[Campo1]]:42, [[Campo2]]:false, [[Campo3]]: empty} define un valor *Record* que tiene tres campos, cada uno de los cuales es inicializado con un valor específico. El orden de los nombres de los campos no es significativo. Todo campo que no sea explícitamente listado es considerado como ausente.
+
+En el texto de la especificación y los algoritmos, la notación de punto puede ser usada para hacer referencia a una campo específico de un valor *Record*. Por ejemplo, si R es el registro mostrado en el párrafo anterior, entonces R.[[Campo2]] es la abreviatura de "el campo de R con nombre [[Campo2]]".
+
+El esquema de una combinación específica de campos en un *Record* puede ser nombrada, de tal manera que ese nombre puede ser usado como prefijo para un valor literal *Record* que identifica la clase específica de agregados que están siendo descritos. Por ejemplo, PropertyDescriptor{[[Value]]:42, [[Writable]]:false, [[Configurable]]:true}.
+
+### 6.2.2 Los tipos de la especificación 'Set' y 'Relation'
+<span class="original-title">The Set and Relation Specification Types</span>
+
+El tipo *Set* es usado para explicar una colección desordenada de elementos usados en el [modelo de memoria][6-103]. Los valores del tipo *Set* son simples colecciones de elementos, donde ninguno de ellos puede aparecer más de una vez. Elementos pueden ser añadidos o removidos de un *Set*. Varios *Set* pueden ser unidos, intersectados, o sustraídos uno del otro.
+
+El tipo *Relation* es usado para explicar las restricciones aplicables a *Set*. Los valores de un tipo *Relation* son *Set*s de pares ordenados de valores de su valor dominante. Por ejemplo, un *Relation* de eventos es un conjunto(set) de pares ordenados de eventos. Para un *Relation* **R** y dos valores **a** y **b** en el valor dominante de **R**, '_aRb_' es una abreviación para decir que "el par ordenado (a,b) es un miembro de R. Una *Relation* es menor con respecto a ciertas condiciones cuando es la *Relation* más pequeña que satisface esas condiciones. 
+
+Un *orden parcial estricto* es un valor de *Relation* que satisface las siguientes condiciones:
+
+1. Para todo **_a, b_** y **_c_** en el dominio de **_R_**:
+    1. No es el caso que **_aRa_**, y
+    2. Si **_aRb_** y **_bRc_**, entonces **_aRc_**.
+
+> NOTA 1 - Las dos propiedades de arriba son llamadas, en orden, *irreflexividad* y *transitividad*.
+
+Un *orden total estricto* es un valor de *Relation* que satisface las siguientes condiciones:
+
+1. Para todo **_a, b_** y **_c_** en el dominio de **_R_**:
+    1. **_aRb_** o **_bRa_**, y 
+    2. no es el caso que **_aRa_**, y
+    3. si **_aRb_** y **_bRc_**, entonces **_aRc_**.
+
+> NOTA 2 - Las tres propiedades de arriba son llamadas, en orden, *totalidad*, *irreflexividad*, y *transitividad*. 
+
+
+
+
+
+----------
+
 
 [6-001]: www.aca-va-una-explicacion-sobre-lo-que-es-locale.com
 [6-006]: www.aca-una-referencia-cruzada-a-la-tabla-5.com
@@ -499,12 +544,20 @@ Un tipo de la especificación corresponde a meta-valores que son usados dentro d
 [6-094]: www.referencia-cruzada-a-23-4-3.com
 [6-095]: www.referencia-cruzada-a-8-3.com
 [6-096]: www.referencia-cruzada-a-8-3.com
-[6-097]: www.referencia-cruzada-a-8-3.com
-[6-098]: www.referencia-cruzada-a-8-3.com
-[6-099]: www.referencia-cruzada-a-8-3.com
-[6-100]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
-[6-013]: www.referencia-cruzada-a-8-3.com
+[6-097]: www.referencia-cruzada-a-.com
+[6-098]: www.referencia-cruzada-a-.com
+[6-099]: www.referencia-cruzada-a-.com
+[6-100]: www.referencia-cruzada-a-.com
+[6-101]: www.referencia-cruzada-a-.com
+[6-102]: www.referencia-cruzada-a-12-3-6.com
+[6-103]: www.referencia-cruzada-a-27.com
+[6-104]: www.referencia-cruzada-a-.com
+[6-105]: www.referencia-cruzada-a-.com
+[6-106]: www.referencia-cruzada-a-.com
+[6-107]: www.referencia-cruzada-a-.com
+[6-108]: www.referencia-cruzada-a-.com
+[6-109]: www.referencia-cruzada-a-.com
+[6-110]: www.referencia-cruzada-a-.com
+[6-111]: www.referencia-cruzada-a-.com
+[6-112]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
