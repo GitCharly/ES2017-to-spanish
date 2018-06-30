@@ -445,6 +445,57 @@ Un *orden total estricto* es un valor de *Relation* que satisface las siguientes
 
 > NOTA 2 - Las tres propiedades de arriba son llamadas, en orden, *totalidad*, *irreflexividad*, y *transitividad*. 
 
+### 6.2.3 El tipo de la especificación 'Completion Record'
+<span class="original-title">The Completion Record Specification Type</span>
+
+El tipo '*Completion*' es un [*Record*][6-104] usado para explicar la propagación de valores y flujo de control en tiempo de ejecución asi como el comportamiento de sentencias que ejecutan transferencias de control no locales (**break, continue, return, throw**). 
+
+Los valores del tipo '*Completion*' son valores del tipo [*Record*][6-104] cuyos campos están definidos por la tabla 8. Tales valores son llamados: '*Completion Records*'.
+
+> TABLA 8: Campos de Completion Record
+
+|Nombre del campo|Valor|Significado|
+|----|----|----|
+|[[Type]]|Uno entre: `normal, break, continue, return`o `throw`|El tipo de finalización (Completion) que ha ocurrido|
+|[[Value]]|vacío o cualquier [valor del lenguaje ECMASCript][6-105]|El valor que fue producido.|
+|[[Target]]|vacío o cualquier cadena (string) ECMAScript|La etiqueta del objeto al que se ha transferido el control.|
+
+El término "*abrupt completion*" se refiere a cualquier finalización (Completion) con un [[Type]] distinto a `normal`.
+
+#### 6.2.3.1 Await
+
+Algoritmo que dice: 
+
+1. Let *completion* be Await(promise).
+
+indicando lo mismo que: 
+
+1. Let *assynCContext* be the [running execution context.][6-106] 
+2. Let *promiseCapability* be ! [NewPromiseCapability][6-107][(%Promise%)][6-108] 
+3. Perform ! [Call][6-109](*promiseCapability*.[[Resolve]], **undefined**, <<promise>>)
+4. Let *stepsFullfilled* be the algorithm steps defined in [Await Fulfilled Functions.][6-110]
+5. Let *onFullfilled* be [CreateBuiltinFunction][6-111](*stepsFulfilled*, <<[[AsyncContext]]>>).
+6. Set *onFulfilled*.[[AsyncContext]] to *asyncContext*.
+7. Let *stepsRejected* be the algorithm steps defined in [Await Rejected Functions.][6-112]
+8. Let *onRejected* be [CreateBuiltinFunction][6-111](*stepsRejected*, <<[[AsyncContext]]>>).
+9. Set *onRejected*.[[AsyncContext]] to *asyncContext*.
+10. Let *throwawayCapability* be ! [NewPromiseCapability][6-107][(%Promise%)][6-108].
+11. Set *throwawayCapability*.[[Promise]].[[PromiseIsHandled]] to **true**.
+12. Perform ! [PerformPromiseThen][6-113](*promiseCapability*).[[Promise]], *onFullfilled, onRejected, throwawayCapability*).
+13. Remove *asyncContext* from the [execution context stack][6-106] and restore the [execution context][6-106] that is at the top of the [execution context stack][6-106] as the [running execution context][6-106]
+14. Set the code evaluation state of *asyncContext* such that when evaluation is resumed with a [Completion][6-114] *completion*, the following steps of the algorithm that invoked **Await** will be performed, with *completion* available.
+
+donde todas las variables en los pasos anteriores, con la excepción de *completion*, son efímeros y solo visibles en los pasos pertenecientes a Await.
+
+> NOTA: Await puede ser combinado con los prefijos ? y !, de tal manera que:
+
+
+> 1. Let *value* be ? Await(*promise*)  
+
+significa lo mismo que:
+
+> 1. Let *value* be Await(*promise*).
+> 2. ReturnIfAbrupt(*value*).
 
 
 
@@ -542,22 +593,41 @@ Un *orden total estricto* es un valor de *Relation* que satisface las siguientes
 [6-092]: www.referencia-cruzada-a-23-3-3.com
 [6-093]: www.referencia-cruzada-a-23-4-1.com
 [6-094]: www.referencia-cruzada-a-23-4-3.com
-[6-095]: www.referencia-cruzada-a-8-3.com
-[6-096]: www.referencia-cruzada-a-8-3.com
-[6-097]: www.referencia-cruzada-a-.com
-[6-098]: www.referencia-cruzada-a-.com
-[6-099]: www.referencia-cruzada-a-.com
-[6-100]: www.referencia-cruzada-a-.com
-[6-101]: www.referencia-cruzada-a-.com
+[6-095]: www.referencia-cruzada-a-6-2-4.com
+[6-096]: www.referencia-cruzada-a-6-2-1.com
+[6-097]: www.referencia-cruzada-a-6-2-3.com
+[6-098]: www.referencia-cruzada-a-6-2-5.com
+[6-099]: www.referencia-cruzada-a-8-1.com
+[6-100]: www.referencia-cruzada-a-8-1-1.com
+[6-101]: www.referencia-cruzada-a-8-2-7.com
 [6-102]: www.referencia-cruzada-a-12-3-6.com
 [6-103]: www.referencia-cruzada-a-27.com
-[6-104]: www.referencia-cruzada-a-.com
-[6-105]: www.referencia-cruzada-a-.com
-[6-106]: www.referencia-cruzada-a-.com
-[6-107]: www.referencia-cruzada-a-.com
-[6-108]: www.referencia-cruzada-a-.com
-[6-109]: www.referencia-cruzada-a-.com
-[6-110]: www.referencia-cruzada-a-.com
-[6-111]: www.referencia-cruzada-a-.com
-[6-112]: www.referencia-cruzada-a-.com
+[6-104]: www.referencia-cruzada-a-6-2-1.com
+[6-105]: www.referencia-cruzada-a-6-1.com
+[6-106]: www.referencia-cruzada-a-8-3.com
+[6-107]: www.referencia-cruzada-a-25-6-1-5.com
+[6-108]: www.referencia-cruzada-a-25-6-3.com
+[6-109]: www.referencia-cruzada-a-7-3-12.com
+[6-110]: www.referencia-cruzada-a-6-2-3-1-1.com
+[6-111]: www.referencia-cruzada-a-9-3-3.com
+[6-112]: www.referencia-cruzada-a-6-2-3-1-2.com
+[6-113]: www.referencia-cruzada-a-25-6-5-4-1.com
+[6-114]: www.referencia-cruzada-a-6-2-3.com
+[6-115]: www.referencia-cruzada-a-.com
+[6-116]: www.referencia-cruzada-a-.com
+[6-117]: www.referencia-cruzada-a-.com
+[6-118]: www.referencia-cruzada-a-.com
+[6-119]: www.referencia-cruzada-a-.com
+[6-120]: www.referencia-cruzada-a-.com
 [6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+[6-113]: www.referencia-cruzada-a-.com
+
