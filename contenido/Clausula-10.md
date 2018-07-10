@@ -1,4 +1,4 @@
-# Lenguaje ECMAScript - Código fuente
+# 10 Lenguaje ECMAScript - Código fuente
 <span class="original-title">ECMAScript Language: Source Code</span>
 
 ## 10.1 Texto fuente
@@ -49,10 +49,30 @@ Hay cuatro tipos de código ECMAScript:
 
 > NOTA: *Function code* es generalmente provisto como el cuerpo de las 'Function Definitions' [(14.1)][10-004], 'Arrow Function Definitions' [(14.2)][10-009], 'Method Definitions' [(14.3)][10-008], 'Generator Function Definitions' [(14.4)][10-005], 'Async Function Definitions' [(14.7)][10-006], 'Asyn Generator Function Definitions' [(14.5)][10-007],  y 'Asyn Arrow Functions' [(14.8)][10-010]. *Funtion code* también es derivado de los argumentos del [constructor][10-013] de **Function** [(19.2.1.1)][10-015], de **GeneratorFunction** [(25.2.1.1)][10-016] y de **AsyncFunction** [(25.7.1.1)][10-017]. 
 
+### 10.2.1 Código de modo estricto.
+<span class="original-title">Stric Mode Code</span>
+
+Una unidad sintáctica '*Script*' de ECMAScript puede ser procesada usando modos tanto irresctricto o estricto para las sintaxis y gramáticas. El código es interpretado como *código en modo estricto* en las siguientes situaciones: 
+
++ *Global Code* está en modo estricto si comienza con un [Directive Prologue][10-018] que contiene una [User Strict Directive][10-018].
++ *Module Code* es siempre código en modo estricto. 
++ Todas las partes de una [*ClassDeclaration*][10-011] o una [*ClassExpression*][10-011] son código en modo estricto. 
++ *Eval Code* es código en modo estricto si comienza con un [Directive Prologue][10-018] que contiene una [User Strict Directive][10-018] o si la llamada a **eval** es una [direct eval][10-019] que está contenida en código en modo estricto.
++ *Function Code* está en modo estricto si la [*FunctionDeclaration*][10-004], [*FunctionExpression*][10-004], [*GeneratorDeclaration*][10-005], [*GeneratorExpression*][10-005], [*AsyncFunctionDeclaration*][10-006], [*AsyncFunctionExpression*][10-006], [*AsyncGeneratorDeclaration*][10-007], [*AsyncGeneratorExpression*][10-007], [*MethodDefinition*][10-008], [*ArrowFunction*][10-009], o [*AsyncArrowFunction*][10-010] asociada está contenida en código en modo estricto o si el código que produce el valor de la ranura interna de la función [[ECMAScriptCode]] comienza con un [Directive Prologue][10-018] que contiene una [User Strict Directive][10-018].
++ *Function Code* que es suministrado como el argumento de los constructores incorporados **Function**, **Generator**, **AsyncFunction** y **AsyncGenerator** está en modo estricto si el último argumento es una String que cuando se procesa es un [*FunctionBody*][10-004] que comienza con un [Directive Prologue][10-018] que contiene una [User Strict Directive][10-018].
+
+El código ECMAScript que no es código en modo estricto es llamado *código no-estricto*.
+
+### 10.2.2 Funciones No-ECMAScript
+<span class"original-title">No-ECMAScript Functions</span>
+
+Una implementación ECMAScript puede soportar la evaluación de objetos de función exóticos cuyo comportamiento evaluativo es expresado en la forma de algún código ejecutable definido por la implementación que no sea código ECMAScript. Si un [objeto función][10-013] es una código de función ECMAScript o una función no-ECMAScript no es observable semánticamente desde la perspectica del código de la función ECMAScript que llama o es llamado por tal función no-ECMAScript.
 
 
 
 ----
+[10-019]: www.enlace-a-12-3-4-1.com
+[10-018]: www.enlace-a-14-1-1.com
 [10-017]: www.enlace-a-25-7-1-1.com
 [10-016]: www.enlace-a-25-2-1-1.com
 [10-015]: www.enlace-a-19-2-1-1.com
